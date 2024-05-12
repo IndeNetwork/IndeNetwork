@@ -29,7 +29,7 @@
                 src="{{url_for('static', filename='img/LOGO/Logo 2 - Beta.png')}}"
             />
             <nav>
-                <button id="bttn_registro" type="button">
+                <button id="bttn_register" type="button">
                     Registrarse
                 </button>
                 <button id="bttn_login" type="button">
@@ -41,8 +41,8 @@
         <div class="cont_general">
             <div class="informacion-proyecto">
                 <h1 id="eslogan">
-                    El espacio ideal <br />para resolver dudas <br />y
-                    potenciar tu aprendizaje
+                    Donde tus preguntas <br />encuentran respuestas
+                    <br />y tu aprendizaje <br />se fortalece
                 </h1>
                 <div id="info">
                     <h4>
@@ -66,8 +66,8 @@
 
         <footer>
             <p>
-                El espacio ideal para resolver dudas y potenciar tu
-                aprendizaje
+                Donde tus preguntas encuentran respuestas y tu
+                aprendizaje se fortalece
             </p>
             <a href="https://ieindependencia.edu.co">
                 I.E La Independencia
@@ -75,12 +75,15 @@
             <p>&copy; 2024 IndeNetwork</p>
         </footer>
         <script>
+            document.body.style.display = "none"
             window.addEventListener("load", function () {
-                document
-                    .getElementById("bttn_login")
-                    .addEventListener("click", function () {
+                document.body.style.display = "flex"
+                document.getElementById("bttn_login").addEventListener("click", function () {
                         location.href = "/login"
-                    })
+                    });
+                document.getElementById("bttn_register") .addEventListener("click", function () {
+                        location.href = "/register"
+                    });
             })
         </script>
     </body>

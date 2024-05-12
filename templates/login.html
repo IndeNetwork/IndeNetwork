@@ -29,62 +29,77 @@
                     id="logo"
                     src="{{url_for('static', filename='img/LOGO/Logo 2 - Beta.png')}}"
                 />
-                <div class="flex-column">
-                    <label>Documento</label>
-                </div>
-                <div class="inputsFormulario">
-                    <img
-                        id="documentoICO"
-                        src="{{url_for('static', filename='img/ICONS/User_BN - ICO.png')}}"
-                        alt="Icono de usuario"
-                    />
-                    <input
-                        name="inputDocumentNumber"
-                        type="number"
-                        class="input"
-                        placeholder="Ingrese su documento"
-                        required
-                    />
-                </div>
-
-                <div class="flex-column">
-                    <label>Contraseña </label>
-                </div>
-                <div class="inputsFormulario">
-                    <img
-                        id="contraseñaICO"
-                        src="{{url_for('static', filename='img/ICONS/Candado - ICO.png')}}"
-                        alt="Icono de candado"
-                    />
-                    <input
-                        name="inputPass"
-                        type="password"
-                        class="input"
-                        placeholder="Ingrese su contraseña"
-                        required
-                    />
-                    <img
-                        id="contraseñaICO"
-                        src="{{url_for('static', filename='img/ICONS/OjoCerrado - ICO.png')}}"
-                        alt="Icono de Ojo Cerrado"
-                    />
-                    <img
-                        style="display: none;"
-                        id="contraseñaICO"
-                        src="{{url_for('static', filename='img/ICONS/OjoAbierto - ICO.png')}}"
-                        alt="Icono de Ojo abierto"
-                    />
-                </div>
-
-                <div class="flex-row">
-                    <div>
-                        <input id="opcion_recordar" type="checkbox" />
-                        <label>Recuerdame </label>
+                <h3>¡Bienvenido a IndeNetwork!</h3>
+                <p>Aquí podrás iniciar sesión en la plataforma</p>
+                <div id="cont_input-label">
+                    <div class="labels">
+                        <label>Documento</label>
                     </div>
-                    <span id="span_recuperarContraseña"
-                        >Olvidé mi contraseña</span
-                    >
+                    <div class="inputs">
+                        <img
+                            class="ICO"
+                            src="{{url_for('static', filename='img/ICONS/User_BN - ICO.png')}}"
+                            alt="Icono de usuario"
+                        />
+                        <input
+                            name="inputDocumentNumber"
+                            type="number"
+                            class="input"
+                            placeholder="Ingrese su documento"
+                            required
+                        />
+                    </div>
                 </div>
+                <div class="cont_input-label">
+                    <div class="labels">
+                        <label>Contraseña </label>
+                        <p
+                            id="msg_contraseñaInconrrecta"
+                            style="display: none; color: red"
+                        >
+                            ¡Contraseña incorrecta!
+                        </p>
+                    </div>
+                    <div class="inputs">
+                        <img
+                            class="ICO"
+                            src="{{url_for('static', filename='img/ICONS/Candado - ICO.png')}}"
+                            alt="Icono de candado"
+                        />
+                        <input
+                            name="inputPass"
+                            type="password"
+                            class="input"
+                            placeholder="Ingrese su contraseña"
+                            required
+                        />
+                        <!--ESTA FUNCIONALIDA SE IMPLEMENTARÁ DESPUES
+                            <img
+                                style="display: none"
+                                id="contraseñaCLOSE"
+                                src="{{url_for('static', filename='img/ICONS/OjoCerrado - ICO.png')}}"
+                                alt="Icono de Ojo Cerrado"
+                            />
+                            <img
+                                style="display: none"
+                                id="contraseñaOPEN"
+                                src="{{url_for('static', filename='img/ICONS/OjoAbierto - ICO.png')}}"
+                                alt="Icono de Ojo abierto"
+                            />
+                        -->
+                    </div>
+                </div>
+                <!--ESTAS FUNCIONALIDADES SE IMPLEMENTARAN DESPUES
+                    <div class="flex-row">
+                        <div>
+                            <input id="opcion_recordar" type="checkbox" />
+                            <label>Recuerdame </label>
+                        </div>
+                        <span id="span_recuperarContraseña"
+                            >Olvidé mi contraseña</span
+                        >
+                    </div>
+                -->
                 <button
                     type="submit"
                     class="bttn_login"
@@ -92,21 +107,10 @@
                 >
                     Iniciar Sesión
                 </button>
-                <p class="p">
-                    No tengo una cuenta -
-                    <span id="span_registrarse">Registrarse</span>
+                <p>
+                    ¿No tienes una cuenta? -
+                    <span id="span_register">Registrarse</span>
                 </p>
-                <p class="p line">O</p>
-
-                <div class="flex-row">
-                    <button class="profesor">
-                        <img
-                            id="profesorICO"
-                            src="{{url_for('static', filename='img/ICONS/Profesor - ICO.png')}}"
-                        />
-                        Soy Profesor
-                    </button>
-                </div>
             </form>
         </div>
         <div class="animacion">
@@ -117,11 +121,33 @@
             </div>
         </div>
         <script>
-            document
-                .querySelector(".bttn_login")
-                .addEventListener("click", function () {
-                    location.href = "/logining"
-                })
+            document.addEventListener(
+                "DOMContentLoaded",
+                function () {
+                    document.querySelector(
+                        ".contenedorFormulario",
+                    ).style.display = "none"
+                    document.querySelector(
+                        ".animacion",
+                    ).style.display = "flex"
+                },
+            )
+
+            window.addEventListener("load", function () {
+                setTimeout(function () {
+                    document.querySelector(
+                        ".animacion",
+                    ).style.display = "none"
+                    document.querySelector(
+                        ".contenedorFormulario",
+                    ).style.display = "block"
+                }, 2000)
+                document
+                    .getElementById("span_register")
+                    .addEventListener("click", function () {
+                        location.href = "/register"
+                    })
+            })
         </script>
     </body>
 </html>

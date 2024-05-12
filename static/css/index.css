@@ -1,5 +1,5 @@
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: "LT Saeada", sans-serif !important;
     min-height: 100vh;
     margin: 0;
     display: flex;
@@ -56,7 +56,7 @@ footer a {
 }
 
 #eslogan {
-    font-size: 250%;
+    font-size: 300%;
 }
 
 .informacion-proyecto {
