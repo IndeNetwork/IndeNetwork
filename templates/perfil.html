@@ -53,15 +53,18 @@
                                 src="{{url_for('static', filename='img/ICONS/OpcionPuntos_ICO.png')}}"
                             />
                         </div>
-                        <div id="options" style="display: none;">
-                            <ul id="submenu">
-                                <li id="function_editarPerfil"
-                                    >Editar perfil</li
-                                >
-                                <li id="function_cerrarSesion"
-                                    >Cerrar Sesión</li
-                                >
-                            </ul>
+                        <div
+                            id="principalOptions"
+                            style="display: none"
+                        >
+                            <div id="secundarioOptions">
+                                <p id="optionEditar" class="options">
+                                    Editar perfil
+                                </p>
+                                <p id="optionCerrar" class="options">
+                                    Cerrar Sesión
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,11 +148,17 @@
             document
                 .getElementById("opcionesICO")
                 .addEventListener("click", function () {
-                    if (document.getElementById("options").style.display === "none"){
-                        document.getElementById("options").style.display = "flex"
-                    }
-                    else {
-                        document.getElementById("options").style.display = "none"
+                    if (
+                        document.getElementById("principalOptions")
+                            .style.display === "none"
+                    ) {
+                        document.getElementById(
+                            "principalOptions",
+                        ).style.display = "flex"
+                    } else {
+                        document.getElementById(
+                            "principalOptions",
+                        ).style.display = "none"
                     }
                 })
         })

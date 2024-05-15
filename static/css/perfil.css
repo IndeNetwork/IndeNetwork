@@ -117,6 +117,7 @@ img {
     flex: 1;
     gap: 5px;
     font-size: 15px;
+    position: relative;
 }
 
 .tipo_opciones {
@@ -150,24 +151,25 @@ label {
     color: gray;
 }
 
-#options {
-    height: auto;
+#principalOptions {
+    position: fixed;
+    width: 130px;
     text-align: left;
-    position: absolute;
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1),
-        0 1px 30px 0 rgba(0, 0, 0, 0.1);
-    border: 0.5px solid #312f2f;
+    0 1px 30px 0 rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    right: 0;
 }
 
-#menu {
-    width: 100%;
-    box-sizing: border-box;
+#secundarioOptions {
+    padding: 5px;
 }
 
-#menu il {
-    margin-left: 13px;
+.options {
+    display: flex;
+    margin: 10px;
 }
 
 /*CODIGO PARA EL LOADER*/
