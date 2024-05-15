@@ -10,12 +10,13 @@
             rel="stylesheet"
             href="{{url_for('static', filename='css/login.css')}}"
         />
-        <title>Home - IndeNetwork</title>
+        <title>inicio - IndeNetwork</title>
         <link
             rel="icon"
             type="image/icon"
             href="{{url_for('static', filename='img/LOGO/Logo - INet ICO.ico')}}"
         />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
         <div class="contenedorFormulario">
@@ -27,7 +28,7 @@
             >
                 <img
                     id="logo"
-                    src="{{url_for('static', filename='img/LOGO/Logo 2 - Beta.png')}}"
+                    src="{{url_for('static', filename='img/LOGO/Logotipo.png')}}"
                 />
                 <h3>¡Bienvenido a IndeNetwork!</h3>
                 <p>Aquí podrás iniciar sesión en la plataforma</p>
@@ -38,7 +39,7 @@
                     <div class="inputs">
                         <img
                             class="ICO"
-                            src="{{url_for('static', filename='img/ICONS/User - ICO.png')}}"
+                            src="{{url_for('static', filename='img/ICONS/Documento_ICO.png')}}"
                             alt="Icono de usuario"
                         />
                         <input
@@ -53,17 +54,11 @@
                 <div class="cont_input-label">
                     <div class="labels">
                         <label>Contraseña </label>
-                        <p
-                            id="msg_contraseñaInconrrecta"
-                            style="display: none; color: red"
-                        >
-                            ¡Contraseña incorrecta!
-                        </p>
                     </div>
                     <div class="inputs">
                         <img
                             class="ICO"
-                            src="{{url_for('static', filename='img/ICONS/Candado - ICO.png')}}"
+                            src="{{url_for('static', filename='img/ICONS/Contraseña_ICO.png')}}"
                             alt="Icono de candado"
                         />
                         <input

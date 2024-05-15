@@ -22,68 +22,96 @@
         />
     </head>
     <body>
-        <header>
-            <img
-                id="logo"
-                alt="Logo de IndeNetwork"
-                src="{{url_for('static', filename='img/LOGO/Logo 2 - Beta.png')}}"
-            />
-            <nav>
-                <button id="bttn_register" type="button">
-                    Registrarse
-                </button>
-                <button id="bttn_login" type="button">
-                    Iniciar Sesión
-                </button>
-            </nav>
-        </header>
-
-        <div class="cont_general">
-            <div class="informacion-proyecto">
-                <h1 id="eslogan">
-                    Donde tus preguntas <br />encuentran respuestas
-                    <br />y tu aprendizaje <br />se fortalece
-                </h1>
-                <div id="info">
-                    <h4>
-                        ¡Descubre IndeNetwork: tu plataforma educativa
-                        en línea que fomenta la colaboración y el
-                        aprendizaje mutuo!
-                    </h4>
-                    <p>
-                        Conecta con otros estudiantes, forma grupos de
-                        estudio, comparte conocimientos y resuelve
-                        dudas, todo desde la comodidad de tu
-                        dispositivo. Únete a nuestra comunidad y vive
-                        la experiencia de un aprendizaje enriquecedor
-                        que te llevará hacia el éxito académico.
-                        ¡Empieza tu viaje educativo digital hoy mismo
-                        con IndeNetwork!
-                    </p>
+        <div id="body2">
+            <header>
+                <img
+                    id="logo"
+                    alt="Logo de IndeNetwork"
+                    src="{{url_for('static', filename='img/LOGO/Logotipo.png')}}"
+                />
+                <nav>
+                    <button id="bttn_register" type="button">
+                        Registrarse
+                    </button>
+                    <button id="bttn_login" type="button">
+                        Iniciar Sesión
+                    </button>
+                </nav>
+            </header>
+    
+            <div class="cont_general">
+                <div class="informacion-proyecto">
+                    <h1 id="eslogan">
+                        Donde tus preguntas <br />encuentran respuestas
+                        <br />y tu aprendizaje <br />se fortalece
+                    </h1>
+                    <div id="info">
+                        <h4>
+                            ¡Descubre IndeNetwork: tu plataforma educativa
+                            en línea que fomenta la colaboración y el
+                            aprendizaje mutuo!
+                        </h4>
+                        <p>
+                            Conecta con otros estudiantes, forma grupos de
+                            estudio, comparte conocimientos y resuelve
+                            dudas, todo desde la comodidad de tu
+                            dispositivo. Únete a nuestra comunidad y vive
+                            la experiencia de un aprendizaje enriquecedor
+                            que te llevará hacia el éxito académico.
+                            ¡Empieza tu viaje educativo digital hoy mismo
+                            con IndeNetwork!
+                        </p>
+                    </div>
                 </div>
             </div>
+            <footer>
+                <p>
+                    Donde tus preguntas encuentran respuestas y tu
+                    aprendizaje se fortalece
+                </p>
+                <a href="https://ieindependencia.edu.co">
+                    I.E La Independencia
+                </a>
+                <p>&copy; 2024 IndeNetwork</p>
+            </footer>
         </div>
-
-        <footer>
-            <p>
-                Donde tus preguntas encuentran respuestas y tu
-                aprendizaje se fortalece
-            </p>
-            <a href="https://ieindependencia.edu.co">
-                I.E La Independencia
-            </a>
-            <p>&copy; 2024 IndeNetwork</p>
-        </footer>
+        <div class="animacion">
+            <div class="three-body">
+                <div class="three-body__dot"></div>
+                <div class="three-body__dot"></div>
+                <div class="three-body__dot"></div>
+            </div>
+        </div>
         <script>
-            document.body.style.display = "none"
+            document.addEventListener(
+                "DOMContentLoaded",
+                function () {
+                    document.getElementById("body2").style.display =
+                        "none"
+                    document.querySelector(
+                        ".animacion",
+                    ).style.display = "flex"
+                },
+            )
+
             window.addEventListener("load", function () {
-                document.body.style.display = "flex"
-                document.getElementById("bttn_login").addEventListener("click", function () {
+                setTimeout(function () {
+                    document.querySelector(
+                        ".animacion",
+                    ).style.display = "none"
+                    document.getElementById("body2").style.display =
+                        "block"
+                }, 2000)
+                document
+                    .getElementById("bttn_login")
+                    .addEventListener("click", function () {
                         location.href = "/login"
-                    });
-                document.getElementById("bttn_register") .addEventListener("click", function () {
+                    })
+                document
+                    .getElementById("bttn_register")
+                    .addEventListener("click", function () {
                         location.href = "/register"
-                    });
+                    })
             })
         </script>
     </body>
