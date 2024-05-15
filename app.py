@@ -73,8 +73,7 @@ def inicio():
 @app.route('/registering', methods=['GET', 'POST'])
 def regitering():
     if request.method == 'POST':
-        # Aqui se obtienen todos los valores de los inputs del formulario de register.html.
-        # int y str son para obtener los valores respectivamente en numero entero y tipo texto.
+        # Aqui se obtienen todos los valores de los inputs del formulario de "register.html". int y str son para obtener los valores respectivamente en numero entero y tipo texto.
         document = int(request.form['inputDocumentNumber'])
         password = str(request.form['inputPassword'])
         username = str(request.form['inputUsername'])
@@ -83,9 +82,7 @@ def regitering():
         # Esta es la ruta de la imagen de perfil por defecto.
         imageProfile = "{{url_for('static', filename='img/ICONS/User_sinFoto.png')}}"
 
-        # Aqui se verifica si se ingreso algun numero de documento y si es el caso se busca
-        # ese numero en la base de datos en la tabla MATRICULE para verficar si
-        # si esta matriculado en el colegio.
+        # Aqui se verifica si se ingreso algun numero de documento y si es el caso se busca ese numero en la base de datos en la tabla MATRICULE para verficar si esta matriculado en el colegio.
         if document:
             cursor.execute(
                 # Se hace una consulta en la base de datos en la tabla MATRICULE para buscar el numero de documento que ingreso el usuario en el registro.
@@ -95,8 +92,7 @@ def regitering():
 
             if matricula_encontrada:
                 print("MATRICULA ENCONTRADA")
-                # Con el documento ya verificado, tambn se verifica el nombre de usuario
-                # y el correo electronico para que no haya datos duplicados en la tabla de PROFILE y ACCOUNT.
+                # Con el documento ya verificado, tambn se verifica el nombre de usuario y el correo electronico para que no haya datos duplicados en la tabla de PROFILE y ACCOUNT.
                 cursor.execute(
                     "SELECT * FROM PROFILE WHERE nickname_profile = %s", (username,))
                 username_encontrado = cursor.fetchone()
@@ -104,8 +100,7 @@ def regitering():
                     "SELECT * FROM ACCOUNT WHERE email_account = %s", (email,))
                 email_encontrado = cursor.fetchone()
 
-                # Si se encuentra un correo electronico y/o un nombre de usuario en la base de datos
-                # no se permitira registrarse, debe ingresarse un dato diferente no existente.
+                # Si se encuentra un correo electronico y/o un nombre de usuario en la base de datos no se permitira registrarse, debe ingresarse un dato diferente no existente.
                 if username_encontrado:
                     print("EL NOMBRE DE USUARIO INGRESADO YA ESTA EN USO")
                     return "EL NOMBRE DE USUARIO INGRESADO YA ESTA EN USO"
@@ -117,9 +112,7 @@ def regitering():
                         # Se inserta en la tabla ACCOUNT el correo electronico y contraseña.
                         "INSERT INTO ACCOUNT (email_account, pass_account, document_account) VALUES (%s, %s, %s)", (email, password, document))
                     if biography:
-                        # Dependiendo de que si o no se ingrese datos de biografia, si se deben
-                        # ingresaran los datos a la tabla PROFILE, el nombre de usuario y ruta por
-                        # defecto de la  imagen de perfil.
+                        # Dependiendo de que si o no se ingrese datos de biografia, si se deben ingresaran los datos a la tabla PROFILE, el nombre de usuario y ruta por defecto de la  imagen de perfil.
                         cursor.execute(
                             "INSERT INTO PROFILE (nickname_profile, biography_profile, image_profile) VALUES (%s, %s, %s)", (username, biography, imageProfile,))
                     else:
@@ -157,8 +150,7 @@ def logining():
             if matricula_encontrada:
                 print(
                     "MATRICULA ENCONTRADA")
-                # Si se encuentra el documento en la tabla ACCOUNT se procede a verificar la contraseña
-                # de ingreso.
+                # Si se encuentra el documento en la tabla ACCOUNT se procede a verificar la contraseña de ingreso.
                 cursor.execute(
                     "SELECT * FROM ACCOUNT WHERE pass_account = %s", (password,)
                 )
@@ -185,8 +177,7 @@ def logining():
 def perfil():
     documentoLogueado = 0
 
-    if session:  # Aqui se verifica si hay alguna session abierta y si no la hay
-        # no se podra acceder al perfil.
+    if session:  # Aqui se verifica si hay alguna session abierta y si no la hay no se podra acceder al perfil.
         documentoLogueado = session['documentoLogueado']
         print(documentoLogueado)
         cursor.execute("SELECT PROFILE.image_profile, PROFILE.nickname_profile, PROFILE.biography_profile FROM ACCOUNT INNER JOIN PROFILE ON ACCOUNT.profile_account=PROFILE.id_profile WHERE ACCOUNT.document_account= %s", (documentoLogueado,))
@@ -213,8 +204,7 @@ def perfil():
             else:
                 grado = str("Sin")
                 grupo = str("grupo asignado")
-        # Aqui se renderiza perfil.html y se carga los datos separados anteriormente encontrado
-        # en la consulta sql.
+        # Aqui se renderiza perfil.html y se carga los datos separados anteriormente encontrado en la consulta sql.
         return render_template('perfil.html', imagen=imagen, username=username, biografia=biografia, grado=grado, grupo=grupo, typeUser=type, nombre=nombre, apellido=apellido)
     else:
         # Aqui se redirecciona a login, ya que no hay una session abierta.
