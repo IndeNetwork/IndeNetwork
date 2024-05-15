@@ -59,10 +59,10 @@ def inicio():
     # Se crea una variable en donde se almacenara el docuemento del usuario que inicio sesion.
     documentoLogueado = 0
     if session:  # Si hay una sesion en curso se podrá accerder al inicio.
-        #En esta variable se almacena el documento del usuario logueado.Luego se redirige al inicio.
-        documentoLogueado = session['documentoLogueado'] 
+        # En esta variable se almacena el documento del usuario logueado.Luego se redirige al inicio.
+        documentoLogueado = session['documentoLogueado']
         return render_template('inicio.html')
-    else: #Si no hay una sesion en curso se redirigira a la pagina de logueo.
+    else:  # Si no hay una sesion en curso se redirigira a la pagina de logueo.
         return redirect(url_for('login'))
 
 # -----------------------------------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ def inicio():
 def regitering():
     if request.method == 'POST':
         # Aqui se obtienen todos los valores de los inputs del formulario de register.html.
-        #int y str son para obtener los valores respectivamente en numero entero y tipo texto.
+        # int y str son para obtener los valores respectivamente en numero entero y tipo texto.
         document = int(request.form['inputDocumentNumber'])
         password = str(request.form['inputPassword'])
         username = str(request.form['inputUsername'])
@@ -88,8 +88,10 @@ def regitering():
         # si esta matriculado en el colegio.
         if document:
             cursor.execute(
-                "SELECT * FROM MATRICULE WHERE documentNumber_matricule = %s", (document,)) #Se hace una consulta en la base de datos en la tabla MATRICULE para buscar el numero de documento que ingreso el usuario en el registro.
-            matricula_encontrada = cursor.fetchone() #Aqui se obtiene el primer valor arrojado por la consulta en la base de datos.
+                # Se hace una consulta en la base de datos en la tabla MATRICULE para buscar el numero de documento que ingreso el usuario en el registro.
+                "SELECT * FROM MATRICULE WHERE documentNumber_matricule = %s", (document,))
+            # Aqui se obtiene el primer valor arrojado por la consulta en la base de datos.
+            matricula_encontrada = cursor.fetchone()
 
             if matricula_encontrada:
                 print("MATRICULA ENCONTRADA")
@@ -198,7 +200,7 @@ def perfil():
             username = str(datosProfile[1])
             biografia = str(datosProfile[2])
         cursor.execute(
-            "SELECT nombre_matricula, apellido_matricula,type_matricule, grado_matricula, grupo_matricula FROM MATRICULE WHERE documentNumber_matricule = %s", (documentoLogueado,))
+            "SELECT name_matricule, lastname_matricule,type_matricule, grade_matricule, group_matricule FROM MATRICULE WHERE documentNumber_matricule = %s", (documentoLogueado,))
         datosMatricule = cursor.fetchone()
         if datosMatricule:
             # Separar por variable los datos arrojados por la consulta.
