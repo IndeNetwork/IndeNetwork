@@ -47,7 +47,7 @@
                 <div class="rows">
                     <div class="row">
                         <div class="tipo_opciones">
-                            <p>{{typeUser}}</p>
+                            <p>{{tipo}}</p>
                             <img
                                 id="opcionesICO"
                                 src="{{url_for('static', filename='img/ICONS/OpcionPuntos_ICO.png')}}"
@@ -81,31 +81,8 @@
                         </div>
                         <div class="rows">
                             <div class="row">
-                                <label>Apodo</label>
-                                <p>{{username}}</p>
-                            </div>
-                        </div>
-                        <div class="rows">
-                            <div class="row">
                                 <label>Grado - Grupo</label>
                                 <p>{{grado + " - " + grupo}}</p>
-                            </div>
-                        </div>
-                        <div class="rows">
-                            <div class="row">
-                                <label>Biografía</label>
-                                <p>{{biografia}}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="fotoPerfil">
-                        <div class="row">
-                            <div class="foto_perfil">
-                                <img
-                                    src="{{imagen}}"
-                                    id="foto_perfil"
-                                />
                             </div>
                         </div>
                     </div>

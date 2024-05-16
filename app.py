@@ -26,8 +26,10 @@ cursor = mydb.cursor()
 @app.route('/')
 def index():
     return render_template('index.html')
-# ------------------------------------------------------------------------------------------------------------
 
+
+# ------------------------------------------------------------------------------------------------------------
+"""
 # Ruta de la pagina de registro.
 
 
@@ -37,6 +39,7 @@ def register():
         return redirect(url_for('inicio'))
     else:  # Si no hay una sesion en curso se autorizará el ingreso a  la pagina de registro.
         return render_template('register.html')
+"""
 
 # -----------------------------------------------------------------------------------------------------------
 
@@ -56,17 +59,14 @@ def login():
 
 @app.route('/inicio')
 def inicio():
-    # Se crea una variable en donde se almacenara el docuemento del usuario que inicio sesion.
-    documentoLogueado = 0
     if session:  # Si hay una sesion en curso se podrá accerder al inicio.
-        # En esta variable se almacena el documento del usuario logueado.Luego se redirige al inicio.
-        documentoLogueado = session['documentoLogueado']
         return render_template('inicio.html')
     else:  # Si no hay una sesion en curso se redirigira a la pagina de logueo.
         return redirect(url_for('login'))
 
-# -----------------------------------------------------------------------------------------------------------
 
+# -----------------------------------------------------------------------------------------------------------
+"""
 # Ruta para el procesamiento del registro.
 
 
@@ -82,16 +82,16 @@ def regitering():
         # Esta es la ruta de la imagen de perfil por defecto.
         imageProfile = "{{url_for('static', filename='img/ICONS/User_sinFoto.png')}}"
 
-        # Aqui se verifica si se ingreso algun numero de documento y si es el caso se busca ese numero en la base de datos en la tabla MATRICULE para verficar si esta matriculado en el colegio.
+        # Aqui se verifica si se ingreso algun numero de documento y si es el caso se busca ese numero en la base de datos en la tabla MIEMBRO para verficar si esta matriculado en el colegio.
         if document:
             cursor.execute(
-                # Se hace una consulta en la base de datos en la tabla MATRICULE para buscar el numero de documento que ingreso el usuario en el registro.
-                "SELECT * FROM MATRICULE WHERE documentNumber_matricule = %s", (document,))
+                # Se hace una consulta en la base de datos en la tabla MIEMBRO para buscar el numero de documento que ingreso el usuario en el registro.
+                "SELECT * FROM MIEMBRO WHERE documentNumber_matricule = %s", (document,))
             # Aqui se obtiene el primer valor arrojado por la consulta en la base de datos.
-            matricula_encontrada = cursor.fetchone()
+            miembro_encontrado = cursor.fetchone()
 
-            if matricula_encontrada:
-                print("MATRICULA ENCONTRADA")
+            if miembro_encontrado:
+                print("MIEMBRO ENCONTRADO")
                 # Con el documento ya verificado, tambn se verifica el nombre de usuario y el correo electronico para que no haya datos duplicados en la tabla de PROFILE y ACCOUNT.
                 cursor.execute(
                     "SELECT * FROM PROFILE WHERE nickname_profile = %s", (username,))
@@ -123,11 +123,12 @@ def regitering():
                     return redirect(url_for('login'))
 
             else:
-                print("MATRICULA NO ENCONTRADA")
-                return "MATRICULA NO ENCONTRADA"
+                print("MIEMBRO NO ENCONTRADO")
+                return "MIEMBRO NO ENCONTRADO"
         else:
             print("DATOS NO INGRESADOS")
             return "DATOS NO INGRESADOS"
+"""
 # -----------------------------------------------------------------------------------------------------------
 
 # Ruta para el procesamiento del login
@@ -141,30 +142,32 @@ def logining():
         password = request.form['inputPass']
 
         if document:
-            # Se verifica si el documento se encuentra en la tabla ACCOUNT.
+            # Se verifica si el documento en la tabla MIEMBRO tiene una matricula.
             cursor.execute(
-                "SELECT * FROM ACCOUNT WHERE document_account = %s ", (
+                "SELECT numeroMatricula_miembro FROM MIEMBRO WHERE numeroDocumento_miembro = %s ", (
                     document,)
             )
-            matricula_encontrada = cursor.fetchone()
-            if matricula_encontrada:
-                print(
-                    "MATRICULA ENCONTRADA")
-                # Si se encuentra el documento en la tabla ACCOUNT se procede a verificar la contraseña de ingreso.
+            #Si se encuentra una mtricula, se almacenará en miembro_encontrado.
+            miembro_encontrado = cursor.fetchone()
+            
+            if miembro_encontrado:
+                #Al encontrarse la matricula, se procede a verificar la contraseña ingresada.
                 cursor.execute(
-                    "SELECT * FROM ACCOUNT WHERE pass_account = %s", (password,)
+                    "SELECT * FROM MIEMBRO WHERE numeroDocumento_miembro = %s", (password,)
                 )
                 contraseña_verificada = cursor.fetchone()
+                #Si la contraseña ingresada se verifica el miembro ya estara logueado.
                 if contraseña_verificada:
+                    #Se guarda una session con el valor de la matricula del miembro.
+                    session['miembroLogueado'] = miembro_encontrado
                     # Si la contraseña es verificada se redireccionará a la ruta inicio.
-                    session['documentoLogueado'] = document
                     return redirect(url_for('inicio'))
                 else:
                     print("CONTRASEÑA INCORRECTA")
                     return "CONTRASEÑA INCORRECTA"
             else:
-                print("MATRICULA NO ENCONTRADA")
-                return "MATRICULA NO ENCONTRADA"
+                print("MIEMBRO NO ENCONTRADO")
+                return "MIEMBRO NO ENCONTRADO"
         else:
             print("DATOS NO INGRESADOS")
             return "DATOS NO INGRESADOS"
@@ -175,37 +178,23 @@ def logining():
 
 @app.route('/perfil')
 def perfil():
-    documentoLogueado = 0
-
-    if session:  # Aqui se verifica si hay alguna session abierta y si no la hay no se podra acceder al perfil.
-        documentoLogueado = session['documentoLogueado']
-        print(documentoLogueado)
-        cursor.execute("SELECT PROFILE.image_profile, PROFILE.nickname_profile, PROFILE.biography_profile FROM ACCOUNT INNER JOIN PROFILE ON ACCOUNT.profile_account=PROFILE.id_profile WHERE ACCOUNT.document_account= %s", (documentoLogueado,))
-        datosProfile = cursor.fetchone()
-        if datosProfile:
-            # Separar por variable los datos arrojados por la consulta.
-            imagen = str(datosProfile[0])
-            if imagen == "None":
-                imagen = str(
-                    url_for('static', filename='img/ICONS/UserCirculo_ICO.png'))
-            username = str(datosProfile[1])
-            biografia = str(datosProfile[2])
-        cursor.execute(
-            "SELECT name_matricule, lastname_matricule,type_matricule, grade_matricule, group_matricule FROM MATRICULE WHERE documentNumber_matricule = %s", (documentoLogueado,))
-        datosMatricule = cursor.fetchone()
-        if datosMatricule:
-            # Separar por variable los datos arrojados por la consulta.
-            nombre = str(datosMatricule[0])
-            apellido = str(datosMatricule[1])
-            type = str(datosMatricule[2])
-            if type == "Estudiante":
-                grado = str(datosMatricule[3])
-                grupo = str(datosMatricule[4])
-            else:
-                grado = str("Sin")
-                grupo = str("grupo asignado")
-        # Aqui se renderiza perfil.html y se carga los datos separados anteriormente encontrado en la consulta sql.
-        return render_template('perfil.html', imagen=imagen, username=username, biografia=biografia, grado=grado, grupo=grupo, typeUser=type, nombre=nombre, apellido=apellido)
+    if "miembroLogueado" in session:  # Aqui se verifica si la session de miembro esta abierta y si no la hay no se podra acceder al perfil.
+        #A esta variable se comparte el valor de la matricula de la session del miembro logueado.
+        miembroLogueado = int(session['miembroLogueado'][0])
+        print("EL TIPO DE ARCHIVO ES: ", type(miembroLogueado), miembroLogueado)
+        #Se consulta el nombre, apellido, tipo, grado y grupo del miembro de acuerdo a su matricula.
+        cursor.execute("SELECT nombre_miembro, apellido_miembro, tipo_miembro, grado_miembro, grupo_miembro FROM MIEMBRO WHERE numeroMatricula_miembro = %s", (miembroLogueado,))
+        datosMiembro = cursor.fetchone()
+        if datosMiembro:
+            # Separar por variable como texto los datos arrojados por la consulta.
+            nombre = str(datosMiembro[0])
+            apellido = str(datosMiembro[1])
+            tipo = str(datosMiembro[2])
+            grado = str(datosMiembro[3])
+            grupo = str(datosMiembro[4])
+        
+        # Aqui se renderiza perfil.html y se carga los datos anteriormente separados encontrados en la consulta.
+        return render_template('perfil.html', nombre=nombre, apellido=apellido, tipo=tipo, grado=grado, grupo=grupo)
     else:
         # Aqui se redirecciona a login, ya que no hay una session abierta.
         return redirect(url_for('login'))

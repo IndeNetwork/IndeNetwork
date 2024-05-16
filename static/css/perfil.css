@@ -102,9 +102,9 @@ img {
 .cont_secundario {
     display: flex;
     gap: 10px;
+
 }
-.informacionPerfil,
-.foto_perfil {
+.informacionPerfil {
     flex: 1;
 }
 
@@ -129,17 +129,6 @@ img {
 }
 
 .tipo_opciones img:hover {
-    cursor: pointer;
-}
-
-.foto_perfil {
-    display: flex;
-    margin-right: 15px;
-}
-
-#foto_perfil {
-    border-radius: 50%;
-    width: 200px;
     cursor: pointer;
 }
 
