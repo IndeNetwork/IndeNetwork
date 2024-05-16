@@ -147,18 +147,19 @@ def logining():
                 "SELECT numeroMatricula_miembro FROM MIEMBRO WHERE numeroDocumento_miembro = %s ", (
                     document,)
             )
-            #Si se encuentra una mtricula, se almacenará en miembro_encontrado.
+            # Si se encuentra una mtricula, se almacenará en miembro_encontrado.
             miembro_encontrado = cursor.fetchone()
-            
+
             if miembro_encontrado:
-                #Al encontrarse la matricula, se procede a verificar la contraseña ingresada.
+                # Al encontrarse la matricula, se procede a verificar la contraseña ingresada.
                 cursor.execute(
-                    "SELECT * FROM MIEMBRO WHERE numeroDocumento_miembro = %s", (password,)
+                    "SELECT * FROM MIEMBRO WHERE numeroDocumento_miembro = %s", (
+                        password,)
                 )
                 contraseña_verificada = cursor.fetchone()
-                #Si la contraseña ingresada se verifica el miembro ya estara logueado.
+                # Si la contraseña ingresada se verifica el miembro ya estara logueado.
                 if contraseña_verificada:
-                    #Se guarda una session con el valor de la matricula del miembro.
+                    # Se guarda una session con el valor de la matricula del miembro.
                     session['miembroLogueado'] = miembro_encontrado
                     # Si la contraseña es verificada se redireccionará a la ruta inicio.
                     return redirect(url_for('inicio'))
@@ -178,12 +179,15 @@ def logining():
 
 @app.route('/perfil')
 def perfil():
-    if "miembroLogueado" in session:  # Aqui se verifica si la session de miembro esta abierta y si no la hay no se podra acceder al perfil.
-        #A esta variable se comparte el valor de la matricula de la session del miembro logueado.
+    # Aqui se verifica si la session de miembro esta abierta y si no la hay no se podra acceder al perfil.
+    if "miembroLogueado" in session:
+        # A esta variable se comparte el valor de la matricula de la session del miembro logueado.
         miembroLogueado = int(session['miembroLogueado'][0])
-        print("EL TIPO DE ARCHIVO ES: ", type(miembroLogueado), miembroLogueado)
-        #Se consulta el nombre, apellido, tipo, grado y grupo del miembro de acuerdo a su matricula.
-        cursor.execute("SELECT nombre_miembro, apellido_miembro, tipo_miembro, grado_miembro, grupo_miembro FROM MIEMBRO WHERE numeroMatricula_miembro = %s", (miembroLogueado,))
+        print("EL TIPO DE ARCHIVO ES: ", type(
+            miembroLogueado), miembroLogueado)
+        # Se consulta el nombre, apellido, tipo, grado y grupo del miembro de acuerdo a su matricula.
+        cursor.execute(
+            "SELECT nombre_miembro, apellido_miembro, tipo_miembro, grado_miembro, grupo_miembro FROM MIEMBRO WHERE numeroMatricula_miembro = %s", (miembroLogueado,))
         datosMiembro = cursor.fetchone()
         if datosMiembro:
             # Separar por variable como texto los datos arrojados por la consulta.
@@ -192,7 +196,7 @@ def perfil():
             tipo = str(datosMiembro[2])
             grado = str(datosMiembro[3])
             grupo = str(datosMiembro[4])
-        
+
         # Aqui se renderiza perfil.html y se carga los datos anteriormente separados encontrados en la consulta.
         return render_template('perfil.html', nombre=nombre, apellido=apellido, tipo=tipo, grado=grado, grupo=grupo)
     else:
