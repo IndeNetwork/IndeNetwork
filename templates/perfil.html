@@ -53,19 +53,22 @@
                                 src="{{url_for('static', filename='img/ICONS/OpcionPuntos_ICO.png')}}"
                             />
                         </div>
-                        <div
-                            id="principalOptions"
-                            style="display: none"
-                        >
-                            <div id="secundarioOptions">
-                                <p id="optionEditar" class="options">
-                                    Editar perfil
-                                </p>
-                                <p id="optionCerrar" class="options">
-                                    Cerrar Sesión
-                                </p>
+                        <!--
+                            Funcion de los tres punticos para editar el perfil - IDEA A FUTURO
+                            <div
+                                id="principalOptions"
+                                style="display: none"
+                            >
+                                <div id="secundarioOptions">
+                                    <p id="optionEditar" class="options">
+                                        Editar perfil
+                                    </p>
+                                    <p id="optionCerrar" class="options">
+                                        Cerrar Sesión
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        -->
                     </div>
                 </div>
                 <div
@@ -122,6 +125,8 @@
                 document.getElementById("body2").style.display =
                     "block"
             }, 2000)
+            /*
+            Funcion para los tres punticos para editar el perfil - IDEA A FUTURO
             document
                 .getElementById("opcionesICO")
                 .addEventListener("click", function () {
@@ -138,6 +143,7 @@
                         ).style.display = "none"
                     }
                 })
+            */
         })
     </script>
 </html>
