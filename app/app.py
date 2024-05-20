@@ -1,6 +1,7 @@
 # Importacion de librerias.
 import mysql.connector
 from flask import Flask, url_for, redirect, request, render_template, session, jsonify, flash
+import flask_login
 
 # Inicializacion de la pagina
 app = Flask(__name__)
@@ -222,7 +223,44 @@ def miembros():
 @app.route('/miembros/insertar', methods= ['GET','POST'])
 def insertarmiembro():
     if request.method == 'POST':
-        pass
+
+        #Captura de los datos puestos en el formulario 
+
+        matricula= request.form['numero_matricula']
+        documento= request.form['numero_documento']
+        nombre= request.form['nombre']
+        apellido= request.form['apellido']
+        tipo_miembro = request.form['tipo_miembro']
+        grado= request.form['grado']
+        grupo= request.form['grupo']
+
+        #si el tipo de miebro es Profesor los campos grado y grupo pasan a ser nulos, ya que un porfesor no pertenece a un grado o a un grupo
+        if tipo_miembro == 'Profesor':
+            grado = None
+            grupo = None
+
+        try:
+            #Se hace la peticion de Mysql para insertar los datos
+            cursor.execute('INSERT INTO MIEMBRO (numeroMatricula_miembro,nombre_miembro,apellido_miembro,numeroDocumento_miembro,tipo_miembro,grado_miembro,grupo_miembro) VALUES (%s,%s,%s,%s,%s,%s,%s)',(matricula,nombre,apellido,documento,tipo_miembro,grado,grupo,))
+            #se suben los cambios hechos a la base de datos
+            mydb.commit()
+            #Mensaje para mostrar en el estatus de la interfaz de miembros
+            flash('Datos del miembro guardados correctamente.')
+            return redirect(url_for('miembros'))
+        except Exception:
+            if tipo_miembro == 'Estudiante':
+                #Si el tipo de miembro es estudiante, los campos grado y grupo deben ser seleccionados, sino hace la siguiente funcion
+                if grado == '#' and grupo == '#' and grado == '#' or grupo == '#':
+                    flash('Error, los campos grado y grupo deben ser seleccionados para estudiante, no pueden estar en "#" '  )
+                    return redirect(url_for('miembros'))
+            if tipo_miembro == '#':
+                flash ('Seleccione el tipo de miembro.')
+                return redirect(url_for('miembros'))
+
+            #si ocurre un error, se mostrara este mensaje
+            if Exception:
+                flash(f'Fallo en guardar los datos, intente de nuevo. {Exception}')
+                return redirect(url_for('miembros'))
     return render_template('insert.html')
 
 #Ruta para eliminar miembros
@@ -243,9 +281,36 @@ def miembros_refresh():
         mydb.commit()
         flash('Datos recargados correctamente')
         return redirect(url_for('miembros'))
-    except ValueError:
-        flash(f'Error al cargar los datos, {ValueError}')
+    except Exception:
+        flash(f'Error al cargar los datos, {Exception}')
         return redirect(url_for('miembros'))
+    
+# Ruta para editar miembro
+@app.route('/miembros/editar/<string:id_miembro>', methods= ['GET','POST'])
+def editar_miembro(id_miembro):
+    cursor.execute('SELECT * FROM MIEMBRO WHERE id_miembro = %s',(id_miembro,))
+    datos = cursor.fetchall()
+    if request.method == 'POST':
+        #Captura de los datos puestos en el formulario 
+
+        matricula= request.form['numero_matricula']
+        documento= request.form['numero_documento']
+        nombre= request.form['nombre']
+        apellido= request.form['apellido']
+        tipo_miembro = request.form['tipo_miembro']
+        grado= request.form['grado']
+        grupo= request.form['grupo']
+        try:
+            cursor.execute('UPDATE MIEMBRO SET numeroMatricula_miembro = %s, nombre_miembro = %s, apellido_miembro = %s, numeroDocumento_miembro = %s, tipo_miembro = %s, grado_miembro = %s, grupo_miembro = %s WHERE id_miembro = %s',(matricula,nombre,apellido,documento,tipo_miembro,grado,grupo, id_miembro ,  ))
+            mydb.commit()
+            flash('Miembro actualizado correctamente')
+            return redirect(url_for('miembros'))
+        except :
+            flash('Error.')
+            return redirect(url_for('miembros'))
+
+
+    return render_template('editar_miembro.html', id_miembro = id_miembro, datos_miembro = datos)
 # -----------------------------------------------------------------------------------------------------------
 
 

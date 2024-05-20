@@ -40,8 +40,8 @@ nav {
 
 #btn_logout {
     display: block;
-    background: #84dccf;
-    color: #22181c;
+    background: #22181c;
+    color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -51,13 +51,15 @@ nav {
 }
 
 #btn_logout:hover {
-    background: #ef626c;
-    color: #fff;
+    background: #f6e8ea;
+    color: #22181c;
+    transition: all 0.5s ease-out;
     transform: scale(1.01);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-.sectTable{
+.sectTable {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,36 +71,36 @@ nav {
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
 }
 
-.tabla{
-    
+.tabla {
+
     width: 100%;
-    overflow-y:auto ;
+    overflow-y: auto;
     height: 200px;
 }
 
-table{
+table {
     margin: 0;
     margin-top: 20px;
     width: 100%;
     overflow: hidden;
     border-collapse: collapse;
     border-radius: 15px;
-    border:  solid #000;
+    border: solid #000;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
 }
 
-table td{
+table td {
     border-radius: 5px;
     text-align: center;
 }
 
-table th{
+table th {
     background-color: #312f2f;
     padding: 10px;
     color: #fff;
 }
 
-.head{
+.head {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -106,14 +108,14 @@ table th{
     align-items: center;
 }
 
-.insert{
+.insert {
     width: 150px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 }
 
-.sectTable footer{
+.sectTable footer {
     margin-top: 20px;
     border: 2px solid black;
     padding: 2px;
@@ -122,28 +124,33 @@ table th{
     width: 100%;
 }
 
-#refresh{
+#refresh {
     border: none;
     background: none;
     cursor: pointer;
 }
 
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(-360deg); }
-  }
-  
-  .spin-animation {
-    animation: spin 1s linear infinite;
-  }
+    from {
+        transform: rotate(0deg);
+    }
 
-#btn-options{
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.spin-animation {
+    animation: spin 1s linear infinite;
+}
+
+#btn-options {
     border: none;
     background: none;
     cursor: pointer;
 }
 
-.options-list{
+.options-list {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -165,27 +172,46 @@ table th{
     display: none;
 }
 
-.btn-insert{
+.btn-insert {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 8px;
-    background-color: #84dccf;
+    background: #22181c;
+    color: #fff;
     border-radius: 5px;
     flex-direction: row;
 
 }
 
 .btn-insert:hover{
-    background: #ef626c;
-    color: #fff;
+    background: #f6e8ea;
+    color: #22181c;
+    transition: all 0.5s ease-out;
     transform: scale(1.01);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-.btn-insert a{
-    text-decoration: none;
-    color: #22181c;
+.btn-insert label {
     margin-left: 5px;
     font-weight: 400;
+}
+
+#insertar {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 1s ease-in-out, height 1s ease-in-out;
+}
+
+/* Estilo visible */
+#insertar.visible {
+    opacity: 1;
+    height: auto;
+    /* Ajusta la altura automáticamente */
+}
+
+/* Para manejar la transición de altura */
+#insertar.hidden {
+    display: none;
 }

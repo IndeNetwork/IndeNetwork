@@ -1,109 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/icon" href="{{url_for('static', filename= 'img/LOGO/Logo - INet ICO.ico')}}" />
-    <link rel="stylesheet" href="{{url_for('static', filename='css/miembros.css')}}">
-    <title>Manejo de Miembros- IndeNetwork</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/icon" href="{{url_for('static', filename= 'img/LOGO/Logo - INet ICO.ico')}}" />
+        <link rel="stylesheet" href="{{url_for('static', filename='css/miembros.css')}}">
+        <title>Manejo de Miembros- IndeNetwork</title>
+    </head>
 
-<body id="body2">
-    <header>
-        <img id="logo" alt="Logo de IndeNetwork" src="/static/img/LOGO/Logotipo.png" />
-        <nav>
-            <button id="btn_logout" type="button">Cerrar Sesion</button>
-        </nav>
-    </header>
-    <section class="sectTable">
-        <div class="head">
-            <div class="count">
-                {%for cantidad_est in total_estudiantes%}
-                <strong>Cantidad de estudiantes: {{cantidad_est}}</strong>
-                {%endfor%}
-                {%for cantidad_profes in total_profesores%}
-                <strong>Cantidad de Profesores: {{cantidad_profes}}</strong>
-                {%endfor%}
+    <body id="body2">
+        <header>
+            <img id="logo" alt="Logo de IndeNetwork" src="/static/img/LOGO/Logotipo.png" />
+            <nav>
+                <button id="btn_logout" type="button">Cerrar Sesion</button>
+            </nav>
+        </header>
+        <section class="sectTable">
+            <div id="insertar" >
+                {%include 'insert.html'%}
             </div>
-            <div class="insert">
-                <button type="button" id="refresh"><img src="{{url_for('static', filename= 'img/ICONS/refreshICO.svg')}}"
-                        alt=""></button>
-                <div class="btn-insert">
-                    <label for="btn-insert"><img src="{{url_for('static', filename='img/ICONS/User+ICO.svg')}}" alt=""></label>
-                    <a href="/miembros/insertar" id="btn-insert">Insertar</a>
+            <div class="head">
+                <div class="count">
+                    {%for cantidad_est in total_estudiantes%}
+                    <strong>Cantidad de estudiantes: {{cantidad_est}}</strong>
+                    {%endfor%}
+                    {%for cantidad_profes in total_profesores%}
+                    <strong>Cantidad de Profesores: {{cantidad_profes}}</strong>
+                    {%endfor%}
+                </div>
+                <div class="insert">
+                    <button type="button" id="refresh"><img src="{{url_for('static', filename= 'img/ICONS/refreshICO.svg')}}"
+                            alt=""></button>
+                    <div class="btn-insert">
+                        <label for="btn-insert"><img src="{{url_for('static', filename='img/ICONS/User+ICO.svg')}}" alt=""></label>
+                        <label for="">Insertar</label>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <body>
-            <section class="tabla">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Numero de matricula</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Numero de documento</th>
-                            <th>Tipo</th>
-                            <th>Grado</th>
-                            <th>Grupo</th>
-                            <th> </th>
-                        </tr>
-                    <tbody>
-                        {%for dato in miembros%}
-                        <tr>
-                            <td>{{dato.1}}</td>
-                            <td>{{dato.2}}</td>
-                            <td>{{dato.3}}</td>
-                            <td>{{dato.4}}</td>
-                            <td>{{dato.5}}</td>
-                            <td>{{dato.6}}</td>
-                            <td>{{dato.7}}</td>
-                            <td>
-                                <button id="btn-options" onclick="toggleOptions(this)"><img src="{{url_for('static', filename= 'img/ICONS/OptionPointICO.svg')}}" alt="" width="20"></button>
-                                <ul class="options-list hidden">
-                                    <li>
-                                        <img src="{{url_for('static', filename= 'img/ICONS/EditUserICO.svg')}}" width="20" alt="">
-                                        <a href="">Editar Miembro</a>
-                                    </li>
-                                    <li>
-                                        <img src="{{url_for('static', filename= 'img/ICONS/DeleteUserICO.svg')}}" width="20" alt="">
-                                        <a href="/miembros/eliminar/{{dato.0}}">Eliminar</a>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                        {%endfor%}
-                    </tbody>
-                    </thead>
-                </table>
-            </section>
-        </body>
-        <footer>
-            <div class="status">
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <div class="flashes">
-                    {% for message in messages %}
-                    <p>Status: {{ message }}</p>
-                    {% endfor %}
+            <body>
+                <section class="tabla">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Numero de matricula</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Numero de documento</th>
+                                <th>Tipo miembro</th>
+                                <th>Grado</th>
+                                <th>Grupo</th>
+                                <th> </th>
+                            </tr>
+                        <tbody>
+                            {%for dato in miembros%}
+                            <tr>
+                                <td>{{dato.1}}</td>
+                                <td>{{dato.2}}</td>
+                                <td>{{dato.3}}</td>
+                                <td>{{dato.4}}</td>
+                                <td>{{dato.5}}</td>
+                                <td>{{dato.6}}</td>
+                                <td>{{dato.7}}</td>
+                                <td>
+                                    <button id="btn-options" onclick="toggleOptions(this)"><img src="{{url_for('static', filename= 'img/ICONS/OptionPointICO.svg')}}" alt="" width="20"></button>
+                                    <ul id="options-list" class="options-list hidden">
+                                        <li class="editar">
+                                                <img src="{{url_for('static', filename= 'img/ICONS/DeleteUserICO.svg')}}" width="20" alt="">
+                                                <a href="/miembros/editar/{{dato.0}}">Editar miembro</a>
+                                        </li>
+                                        <li>
+                                            <img src="{{url_for('static', filename= 'img/ICONS/DeleteUserICO.svg')}}" width="20" alt="">
+                                            <a href="/miembros/eliminar/{{dato.0}}">Eliminar</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                        </thead>
+                    </table>
+                </section>
+            </body>
+            <footer>
+                <div class="status">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <div class="flashes">
+                        {% for message in messages %}
+                        <p>Status: {{ message }}</p>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p>Status: ...</p>
+                    {% endif %}
+                    {% endwith %}
                 </div>
-                {% else %}
-                <p>Status: ...</p>
-                {% endif %}
-                {% endwith %}
+            </footer>
+        </section>
+        <script src="{{url_for('static', filename= 'js/miembros.js')}}"></script>
+        <div class="animacion">
+            <div class="three-body">
+                <div class="three-body__dot"></div>
+                <div class="three-body__dot"></div>
+                <div class="three-body__dot"></div>
             </div>
-        </footer>
-    </section>
-    <script src="{{url_for('static', filename= 'js/miembros.js')}}"></script>
-    <div class="animacion">
-        <div class="three-body">
-            <div class="three-body__dot"></div>
-            <div class="three-body__dot"></div>
-            <div class="three-body__dot"></div>
         </div>
-    </div>
-</body>
+    </body>
 
-</html>
+    </html>

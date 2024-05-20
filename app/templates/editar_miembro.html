@@ -3,38 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename = 'css/insert.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/editar.css')}}">
     <title>Document</title>
 </head>
 <body>
     <div class="form">
+        <h1>Editar Miembro</h1>
 
-        <h1>Nuevo Miembro</h1>
-
-        <form action="/miembros/insertar" method="post">
+        <form action="/miembros/editar/{{id_miembro}}" method="post">
+            {%for dato in datos_miembro%}
             <div class="campos">
                 <div class="camp">
                     <label for="">Matricula</label>
-                    <input type="number" name="numero_matricula" min="0" placeholder="Numero de Matricula">
+                    <input type="number" name="numero_matricula" min="0" value="{{dato.1}}">
                 </div>
                 <div class="camp">
                     <label for="">Documento</label>
-                    <input type="number" min="0" name="numero_documento" placeholder="Numero de documento">
+                    <input type="number" min="0" name="numero_documento" value="{{dato.4}}">
                 </div>
                 <div class="camp">
                     <label for="">Nombre</label>
-                    <input type="text" name="nombre" placeholder="Nombre de miembro">
+                    <input type="text" name="nombre" value="{{dato.2}}">
                 </div>
                 <div class="camp">
                     <label for="">Apellido</label>
-                    <input type="text" name="apellido" placeholder="Apellido de miembro">
+                    <input type="text" name="apellido" value="{{dato.3}}">
                 </div>
                 <div class="camp">
                     <label for="" id="tipo_miembro">Tipo de miembro</label>
                     <select name="tipo_miembro" id="">
-                        <option value="#" name="tipo_miembro">Seleccione el tipo</option>
-                        <option name="tipo_miembro" value="Estudiante">Estudiante</option>
-                        <option name="tipo_miembro" value="Profesor">Profesor</option>
+                        {%if dato.5 == 'Estudiante' %}
+                        <option value="Estudiante">{{dato.5}}</option>
+                        <option value="Profesor">Profesor</option>
+                        {%endif%}
+                        {%if dato.5 == 'Profesor'%}
+                        <option value="Profesor">{{dato.5}}</option>
+                        <option value="Estudiante">Estudiante</option>
+                        {%endif%}
                     </select>
                 </div>  
                 <div class="grp">
@@ -61,12 +66,13 @@
                     </div>
                 </div>
             </div>
+            {%endfor%}
             <div class="Buttons">
                 <input type="submit" value="Añadir">
-                <button type="button" id="Cancelar">Cancelar</button>
+                <a href="/miembros">Cancelar</a>
             </div>
         </form>
     </div>
-
+    <script src="'{{ url_for('static', filename='js/editar_miembro.js') }}"></script>
 </body>
 </html>
