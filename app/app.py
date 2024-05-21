@@ -267,7 +267,6 @@ def search_group():
     if request.method == 'POST':
         nombreGrupo = request.form['grupo_aBuscar']
         if nombreGrupo.strip():
-            # Add the IGNORECASE keyword to perform a case-insensitive search
             cursor.execute(
                 "SELECT * FROM GRUPO WHERE nombre_grupo LIKE %s ESCAPE '\\'", (f'{nombreGrupo.strip()}%',))
             grupos_encontrados = cursor.fetchall()
@@ -279,6 +278,9 @@ def search_group():
             return redirect(url_for('grupos'))
 
 # -----------------------------------------------------------------------------------------------------------
+
+
+
 
 
 if __name__ == '__main__':
