@@ -8,6 +8,7 @@ body {
     min-height: 100vh;
     margin: 0;
     background-color: #f6e8ea;
+    height: 100vh;
 }
 
 #body2 {
@@ -15,6 +16,8 @@ body {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    background-color: #f6e8ea;
+    height: 100vh;
 }
 
 header {
@@ -71,7 +74,7 @@ footer {
     text-align: center;
     background-color: white;
     color: #22181c;
-    margin-top: 70px;
+    margin-top: 60px;
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1),
         0 1px 30px 0 rgba(0, 0, 0, 0.1);
 }
@@ -102,66 +105,76 @@ img {
 .cont_secundario {
     display: flex;
     gap: 10px;
+    padding: 10px;
 }
 
 .informacionPerfil {
     flex: 1;
 }
 
-.rows {
+#type_member {
     display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 17px;
 }
 
-.row {
-    flex: 1;
-    gap: 5px;
-    font-size: 15px;
-    position: relative;
-}
-
-.tipo_opciones {
+#type_member p {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    font-weight: 600;
-    color: #ef626c;
-}
-
-.tipo_opciones img:hover {
-    cursor: pointer;
-}
-
-#opcionesICO {
-    width: 25px;
+    width: 100%;
+    height: 100%;
+    color: #EF626C;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 label {
     color: gray;
 }
 
-/*
-Funcion de los tres punticos para editar el perfil - IDEA A FUTURO
-#principalOptions {
-    position: fixed;
-    width: 130px;
-    text-align: left;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1),
-    0 1px 30px 0 rgba(0, 0, 0, 0.1);
-    z-index: 9999;
-    right: 0;
-}
-
-#secundarioOptions {
-    padding: 5px;
-}
-
-.options {
+#bttns_profile{
     display: flex;
-    margin: 10px;
+    justify-content: space-between;
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
 }
-*/
+
+#logout, #edit_profile {
+    display: flex;
+    background: white;
+    color: #22181c;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.9s, color 0.3s transform 0.3s,
+        box-shadow 0.3s;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1),
+        0 1px 7px 0 rgba(0, 0, 0, 0.1);
+}
+
+#logout:hover,
+#edit_profile:hover {
+    background: #ef626c;
+    color: #fff;
+    transform: scale(1.01);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.rows{
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+}
+
+
 
 /*CODIGO PARA EL LOADER*/
 .animacion {

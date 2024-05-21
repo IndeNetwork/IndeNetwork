@@ -44,32 +44,8 @@
                 </nav>
             </header>
             <div id="cont_principal">
-                <div class="rows">
-                    <div class="row">
-                        <div class="tipo_opciones">
-                            <p>{{tipo}}</p>
-                            <img
-                                id="opcionesICO"
-                                src="{{url_for('static', filename='img/ICONS/OptionPointICO.svg')}}"
-                            />
-                        </div>
-                        <!--
-                            Funcion de los tres punticos para editar el perfil - IDEA A FUTURO
-                            <div
-                                id="principalOptions"
-                                style="display: none"
-                            >
-                                <div id="secundarioOptions">
-                                    <p id="optionEditar" class="options">
-                                        Editar perfil
-                                    </p>
-                                    <p id="optionCerrar" class="options">
-                                        Cerrar Sesión
-                                    </p>
-                                </div>
-                            </div>
-                        -->
-                    </div>
+                <div id="type_member">
+                    <p>{{tipo}}</p>
                 </div>
                 <div
                     style="border-top: 1px solid black; width: 100%"
@@ -90,7 +66,12 @@
                         </div>
                     </div>
                 </div>
+                <div id="bttns_profile">
+                    <button id="logout" type="button">Cerrar Sesión</button>
+                    <button id="edit_profile" type="button">Editar Mi perfil</button>
+                </div>
             </div>
+
 
             <footer>
                 <p>
@@ -125,25 +106,9 @@
                 document.getElementById("body2").style.display =
                     "block"
             }, 2000)
-            /*
-            Funcion para los tres punticos para editar el perfil - IDEA A FUTURO
-            document
-                .getElementById("opcionesICO")
-                .addEventListener("click", function () {
-                    if (
-                        document.getElementById("principalOptions")
-                            .style.display === "none"
-                    ) {
-                        document.getElementById(
-                            "principalOptions",
-                        ).style.display = "flex"
-                    } else {
-                        document.getElementById(
-                            "principalOptions",
-                        ).style.display = "none"
-                    }
-                })
-            */
+            document.getElementById("logout").addEventListener("click",function(){
+                window.location.href = "/logout"
+            })
         })
     </script>
 </html>
