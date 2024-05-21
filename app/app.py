@@ -248,7 +248,7 @@ def editar_miembro(id_miembro):
 
     return render_template('editar_miembro.html', id_miembro=id_miembro, datos_miembro=datos)
 # -----------------------------------------------------------------------------------------------------------
-
+#AUN SIN TERMINAR********
 
 @app.route('/grupos')
 def grupos():
@@ -278,10 +278,12 @@ def search_group():
             return redirect(url_for('grupos'))
 
 # -----------------------------------------------------------------------------------------------------------
-
+# Funcion para cerrar sesión
 @app.route('/logout')
 def logout():
+    # Aqui se elimina mediante ".pop" y si no hay una session devolverá "None".
     session.pop('miembroLogueado', None)
+    # Finalmente se redirecciona a la pantalla de login.
     return redirect(url_for('login'))
 # -----------------------------------------------------------------------------------------------------------
 
