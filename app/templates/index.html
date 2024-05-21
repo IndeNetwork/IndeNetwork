@@ -86,10 +86,6 @@
             </div>
         </div>
         <script>
-            document.getElementById('bttn_login').addEventListener('click', function(){
-                window.location.href = '/login'
-            })
-
             document.addEventListener(
                 "DOMContentLoaded",
                 function () {
@@ -109,6 +105,9 @@
                     document.getElementById("body2").style.display =
                         "block"
                 }, 2000)
+                document.getElementById("bttn_login"),addEventListener("click",function(e) {
+                    location.href = "/login"
+                })
             })
         </script>
     </body>
