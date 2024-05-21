@@ -60,6 +60,20 @@ def inicio():
             return render_template('inicio.html', nombre=datos_miembro[0], apellido=datos_miembro[1])
     else:  # Si no hay una sesion en curso se redirigira a la pagina de logueo.
         return redirect(url_for('login'))
+    
+    
+    
+#******SIN TERMINAR*******
+@app.route('/inicio/search', methods=['POST'])
+def inicio_search():
+    if 'miembroLogueado' in session:
+        if request.method == 'POST':
+            valor_aBuscar = request.form['valor_aBuscar']
+            if valor_aBuscar:
+                cursor.execute("SELECT * FROM MIEMBRO WHERE valor_aBuscar = %s", (valor_aBuscar,))
+                miembros_encontrados = cursor.fetchall()
+    else:
+        return redirect(url_for('login'))
 # -----------------------------------------------------------------------------------------------------------
 
 # Ruta para el procesamiento del login

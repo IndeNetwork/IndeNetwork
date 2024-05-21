@@ -30,6 +30,28 @@
                         />
                     </a>
                 </div>
+                <form
+                    action="/inicio/search"
+                    id="form_buscadorGeneral"
+                    method="post"
+                    autocomplete="off"
+                >
+                    <div id="content_search">
+                        <div id="search">
+                            <input
+                                name="valor_aBuscar"
+                                id="input_search"
+                                type="text"
+                                placeholder="Buscar..."
+                                required
+                            />
+                            <img
+                                id="btn_search"
+                                src="{{url_for('static', filename='img/ICONS/SearchICO.svg')}}"
+                            />
+                        </div>
+                    </div>
+                </form>
                 <nav>
                     <div id="img_nav">
                         <p>
@@ -84,7 +106,11 @@
                 document.getElementById("body2").style.display =
                     "block"
             }, 2000)
-
+            document
+                .getElementById("btn_search")
+                .addEventListener("click", function () {
+                    document.getElementById("form_buscadorGeneral").submit()
+                })
         })
     </script>
 </html>
