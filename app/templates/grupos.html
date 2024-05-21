@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <link
+            rel="icon"
+            type="image/icon"
+            href="{{url_for('static', filename='img/LOGO/Logo - INet ICO.ico')}}"
+        />
+        <link
+            rel="stylesheet"
+            href="{{url_for('static', filename='css/grupos.css')}}"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <title>Grupos - INet</title>
+    </head>
+    <body>
+        <div id="body2">
+            <header>
+                <div id="cont_logo">
+                    <a href="/">
+                        <img
+                            id="logo"
+                            alt="Logo de IndeNetwork"
+                            src="{{url_for('static', filename='img/LOGO/Logotipo.png')}}"
+                        />
+                    </a>
+                </div>
+                <nav>
+                    <div id="img_nav">
+                        <a href="/perfil">
+                            <img
+                                id="img_user"
+                                src="{{url_for('static', filename='img/ICONS/StartICO.svg')}}"
+                            />
+                        </a>
+                        <a>
+                            <img
+                                src="{{url_for('static', filename='img/ICONS/OptionLineICO.svg')}}"
+                            />
+                        </a>
+                    </div>
+                </nav>
+            </header>
+            <form
+                action="/grupos/search"
+                method="POST"
+                id="form_search"
+                autocomplete="off"
+            >
+                <div id="content_search">
+                    <div id="search">
+                        <input
+                            name="grupo_aBuscar"
+                            id="input_search"
+                            type="text"
+                            placeholder="Buscar grupos"
+                            required
+                        />
+                        <img
+                            id="btn_search"
+                            src="{{url_for('static', filename='img/ICONS/SearchICO.svg')}}"
+                        />
+                    </div>
+                </div>
+            </form>
+            <div id="tabla_grupos">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Grado</th>
+                            <th>Asignatura</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for dato in grupos%}
+                        <tr>
+                            <td id="nombre_grupo">{{dato.1}}</td>
+                            <td id="descripcion_grupo">{{dato.2}}</td>
+                            <td>{{dato.3}}</td>
+                            <td>{{dato.5}}</td>
+                            <td>
+                                <button
+                                    id="bttn-enterGroup"
+                                    onclick="toggleOptions(this)"
+                                >
+                                    <img
+                                        src="{{url_for('static', filename= 'img/ICONS/EnterICO.svg')}}"
+                                        alt=""
+                                        width="20"
+                                    />
+                                </button>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+
+            <footer>
+                <p>
+                    Donde tus preguntas encuentran respuestas y tu
+                    aprendizaje se fortalece
+                </p>
+                <a href="https://ieindependencia.edu.co">
+                    I.E La Independencia
+                </a>
+                <p>&copy; 2024 IndeNetwork</p>
+            </footer>
+        </div>
+        <div class="animacion">
+            <div class="three-body">
+                <div class="three-body__dot"></div>
+                <div class="three-body__dot"></div>
+                <div class="three-body__dot"></div>
+            </div>
+        </div>
+    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("body2").style.display = "none"
+            document.querySelector(".animacion").style.display =
+                "flex"
+            localStorage.setItem("Documento", "{{documento}}")
+        })
+
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                document.querySelector(".animacion").style.display =
+                    "none"
+                document.getElementById("body2").style.display =
+                    "block"
+            }, 2000)
+            document
+                .getElementById("btn_search")
+                .addEventListener("click", function () {
+                    document.getElementById("form_search").submit()
+                })
+        })
+    </script>
+</html>
