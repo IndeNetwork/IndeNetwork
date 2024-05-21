@@ -51,7 +51,7 @@ header {
 }
 
 nav {
-    width: 60px;
+    width: 170px;
     max-height: 35px;
     margin-right: 40px;
     justify-content: space-between;
@@ -61,15 +61,24 @@ nav {
     box-sizing: border-box;
 }
 
+nav p {
+    font-size: 14px;
+    color: #22181c;
+    margin: 0;
+    margin-right: 3px;
+}
+
 #img_nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    box-sizing: border-box;
 }
 
 #img_nav img {
     width: 27px;
+    box-sizing: border-box;
 }
 
 #img_nav img:hover {
@@ -78,6 +87,7 @@ nav {
 
 #img_user {
     width: 35px !important;
+    box-sizing: border-box;
 }
 
 footer {

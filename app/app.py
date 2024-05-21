@@ -35,7 +35,7 @@ def index():
 @app.route('/login')
 def login():
     # Esta condicional verfica si hay alguna sesion en curso, si es valida no se podrá ingresar a esta ruta, será redirigido al inicio, ya que no puede iniciar sesion un usuario que ya inicio sesion.
-    if session.get('miembroLogueado'):
+    if 'miembroLogueado' in session:
         return redirect(url_for('inicio'))
     else:  # Si no hay una sesion en curso se autorizará el ingreso a  la pagina de logueo.
         return render_template('login.html')
@@ -47,8 +47,17 @@ def login():
 @app.route('/inicio')
 def inicio():
     # Si hay una sesion en curso se podrá accerder al inicio.
-    if session.get('miembroLogueado'):
-        return render_template('inicio.html')
+    if 'miembroLogueado' in session:
+        # En la siguiente variable se guarda el valor de "miembroLogueado" de la session.
+        miembroLogueado = int(session['miembroLogueado'][0])
+        # Se ejecuta una busqueda basada en el "miembroLogueado" para obtener su nombre y apellido.
+        cursor.execute(
+            "SELECT nombre_miembro, apellido_miembro FROM MIEMBRO WHERE numeroMatricula_miembro = %s", (miembroLogueado,))
+        # Como tupla se guarda el nombre y apellido del miembro en "datos_miembro".
+        datos_miembro = cursor.fetchone()
+        # Solo quedaría cargar o renderizar el html con la información obtenida en la busqueda sql.
+        if datos_miembro:
+            return render_template('inicio.html', nombre=datos_miembro[0], apellido=datos_miembro[1])
     else:  # Si no hay una sesion en curso se redirigira a la pagina de logueo.
         return redirect(url_for('login'))
 # -----------------------------------------------------------------------------------------------------------
@@ -248,7 +257,8 @@ def editar_miembro(id_miembro):
 
     return render_template('editar_miembro.html', id_miembro=id_miembro, datos_miembro=datos)
 # -----------------------------------------------------------------------------------------------------------
-#AUN SIN TERMINAR********
+# AUN SIN TERMINAR********
+
 
 @app.route('/grupos')
 def grupos():
@@ -279,6 +289,8 @@ def search_group():
 
 # -----------------------------------------------------------------------------------------------------------
 # Funcion para cerrar sesión
+
+
 @app.route('/logout')
 def logout():
     # Aqui se elimina mediante ".pop" y si no hay una session devolverá "None".
