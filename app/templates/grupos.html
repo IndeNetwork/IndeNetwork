@@ -87,16 +87,16 @@
                             <td>{{dato.3}}</td>
                             <td>{{dato.5}}</td>
                             <td>
-                                <button
+                                <a
                                     id="bttn-enterGroup"
-                                    onclick="toggleOptions(this)"
+                                    href="grupos/insertar/{{dato.0}}"
                                 >
                                     <img
                                         src="{{url_for('static', filename= 'img/ICONS/EnterICO.svg')}}"
                                         alt=""
                                         width="20"
                                     />
-                                </button>
+                                </a>
                             </td>
                         </tr>
                         {%endfor%}

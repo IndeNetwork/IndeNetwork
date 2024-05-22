@@ -60,17 +60,17 @@ def inicio():
             return render_template('inicio.html', nombre=datos_miembro[0], apellido=datos_miembro[1])
     else:  # Si no hay una sesion en curso se redirigira a la pagina de logueo.
         return redirect(url_for('login'))
-    
-    
-    
-#******SIN TERMINAR*******
+
+
+# ******SIN TERMINAR*******
 @app.route('/inicio/search', methods=['POST'])
 def inicio_search():
     if 'miembroLogueado' in session:
         if request.method == 'POST':
             valor_aBuscar = request.form['valor_aBuscar']
             if valor_aBuscar:
-                cursor.execute("SELECT * FROM MIEMBRO WHERE valor_aBuscar = %s", (valor_aBuscar,))
+                cursor.execute(
+                    "SELECT * FROM MIEMBRO WHERE valor_aBuscar = %s", (valor_aBuscar,))
                 miembros_encontrados = cursor.fetchall()
     else:
         return redirect(url_for('login'))
@@ -212,8 +212,7 @@ def insertarmiembro():
 
             # si ocurre un error, se mostrara este mensaje
             if Exception:
-                flash(f'Fallo en guardar los datos, intente de nuevo. {
-                      Exception}')
+                flash(f'Fallo en guardar los datos, intente de nuevo. {Exception}')
                 return redirect(url_for('miembros'))
     return render_template('insert.html')
 
@@ -292,16 +291,35 @@ def search_group():
         nombreGrupo = request.form['grupo_aBuscar']
         if nombreGrupo.strip():
             cursor.execute(
-                "SELECT * FROM GRUPO WHERE nombre_grupo LIKE %s ESCAPE '\\'", (f'{nombreGrupo.strip()}%',))
+                'SELECT * FROM GRUPO WHERE nombre_grupo = %s', (nombreGrupo,))
             grupos_encontrados = cursor.fetchall()
-            grupos_spacesWhite = [tuple(
-                                  '' if valor is None else valor for valor in grupo) for grupo in grupos_encontrados]
-            return render_template('grupos.html', grupos=tuple(list(reversed(grupos_spacesWhite))))
+            if grupos_encontrados:
+                grupos_spacesWhite = [tuple(
+                                      '' if valor is None else valor for valor in grupo) for grupo in grupos_encontrados]
+                return render_template('grupos.html', grupos=tuple(list(reversed(grupos_spacesWhite))))
+            else:
+                return redirect(url_for('grupos'))
         else:
-
             return redirect(url_for('grupos'))
+        
+@app.route('/grupos/ingresar/<string:id_grupo>')
+def ingresar_grupo(id_grupo):
+    if id_grupo:
+        print(f"\n{id_grupo}\n")
+        cursor.execute("INSERT INTO INTEGRANTE (id_miembro, id_grupo) VALUES (%s, %s)",
+                   (session['miembroLogueado'], id_grupo))
+        mydb.commit()
+        cursor.execute("SELECT id_integrante FROM INTEGRANTE WHERE id_miembro = %s AND id_grupo = %s", (session['miembroLogueado'], id_grupo))
+        integrante_existe = cursor.fetchone()
+        if integrante_existe:
+            session['integranteGrupo'] = integrante_existe
+            print(f"\n{session['miembroLogueado']}\n ---------------- \n{session['integranteGrupo']}\n")
+            return redirect(url_for('inicio'))
+    else:
+        return render_template('inicio.html')
 
 # -----------------------------------------------------------------------------------------------------------
+
 # Funcion para cerrar sesión
 
 
