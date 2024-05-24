@@ -323,7 +323,7 @@ def ingresar_grupo(id_grupo):
 #------------------------------------------------------------------------------------------------------------
 ## Ruta para amigos-chat
 @app.route('/amigos_chat')
-def index():
+def amigos_chat():
         cursor.execute("SELECT  nombre_miembro, apellido_miembro FROM MIEMBRO")
         MIEMBRO= cursor.fetchall()
         print(MIEMBRO)

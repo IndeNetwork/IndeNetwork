@@ -32,8 +32,6 @@ header {
 
 .friends {
     background-color: #fff;
-    margin-top: -30px;
-    margin-bottom: -60px;
     width: 250px;
     height: 600px;
     padding: 10px;
@@ -57,17 +55,20 @@ header {
     font-size: 16px;
 }
 
+#cont_principal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+}
+
 
 .Chat-frineds {
-    top: 50%;
-    right: 0;
     transform: translatez(-50%);
     display: flex;
     background-color: #fff;
     width: 800px;
     height: 600px;
-    margin-top: -559px;
-    margin-left: 529px;
     padding: 10px;
     border-radius: 40px 0px 0px 40px;
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
@@ -190,5 +191,5 @@ footer {
 }
 
 footer a {
-    color: #22181c;
+    color: #22181c;
 }

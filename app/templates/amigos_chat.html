@@ -13,46 +13,50 @@
         <img id="logo" alt="Logo de IndeNetwork" src="{{ url_for('static', filename='img/LOGO/logotipo.png') }}" />
 
     </header>
-    <section class="friends">
-        <h1>FRIENDS</h1>
-        <div class="search-bar">
-            <input type="text" placeholder="Search" id="searchInput">
-        </div>
+    <div id="cont_principal">
+        <section class="friends">
+            <h1>FRIENDS</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search" id="searchInput">
+            </div>
+    
+            <!-- agregar lista de amigos funcion extracion -->
+            <div class="lista">
+                <span>
+                    <ul id="friendsList">
+                        {% for MIEMBRO in MIEMBRO %}
+                        <hr>
+                        <li><a href="">{{ MIEMBRO[0] }} {{MIEMBRO[1]}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </span>
+            </div>
+        </section>
 
-        <!-- agregar lista de amigos funcion extracion -->
-        <div class="lista">
-            <span>
-                <ul id="friendsList">
-                    {% for estudiante in estudiantes %}
-                    <hr>
-                    <li><a href="">{{ estudiante[0] }} {{estudiante[1]}}</a></li>
-                    {% endfor %}
-                </ul>
-            </span>
-        </div>
-    </section>
-    <section class="Chat-frineds">
-        <div class="contenedor_chat">
-            <div class="chat-header" id="chat-header"><strong>Jesús Espitia</strong></div>
-            <hr>
-            <div class="chat-messages">
-                <div class="message sent">
-                    <p class="message-text">Mensaje del emisor</p>
-                    <span class="sent-time time">13/05/2024 12:37 pm</span>
+        <section class="Chat-frineds">
+            <div class="contenedor_chat">
+                <div class="chat-header" id="chat-header"><strong>Jesús Espitia</strong></div>
+                <hr>
+                <div class="chat-messages">
+                    <div class="message sent">
+                        <p class="message-text">Mensaje del emisor</p>
+                        <span class="sent-time time">13/05/2024 12:37 pm</span>
+                    </div>
+    
+                    <div class="message received">
+                        <p class="message-text">Mensaje del receptor</p>
+                        <span class="received-time time">13/05/2024 12:37 pm</span>
+                    </div>
                 </div>
-
-                <div class="message received">
-                    <p class="message-text">Mensaje del receptor</p>
-                    <span class="received-time time">13/05/2024 12:37 pm</span>
+    
+                <div class="chat-input">
+                    <input type="text" placeholder="Escribe Tu Mensaje Aqui...">
+                    <button type="button" id="sendButton">&#10148;</button>
                 </div>
             </div>
+        </section>
+    </div>
 
-            <div class="chat-input">
-                <input type="text" placeholder="Escribe Tu Mensaje Aqui...">
-                <button type="button" id="sendButton">&#10148;</button>
-            </div>
-        </div>
-    </section>
 
     <footer>
         <p>
@@ -64,7 +68,7 @@
         </a>
         <p>&copy; 2024 IndeNetwork</p>
     </footer>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/amigos-chat.js') }}"></script>
 </body>
 
 </html>

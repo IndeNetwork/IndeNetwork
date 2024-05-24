@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (messageText) {
             const messageElement = document.createElement("div");
             messageElement.classList.add("message", "sent");
-            messageElement.innerHTML = `<p>${messageInput}</p><span class="time">${new Date().toLocaleString()}</span>`;
+            messageElement.innerHTML = `<p>${messageText}</p><span class="time">${new Date().toLocaleString()}</span>`;
             messagesContainer.appendChild(messageElement);
             messageInput.value = "";
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
