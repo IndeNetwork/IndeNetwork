@@ -1,0 +1,194 @@
+body {
+    font-family: "LT Saeada", sans-serif !important;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    color: #22181c;
+    background-color: #f6e8ea;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    color: #fff;
+    padding: 20px 0;
+    transition: background-color 0.3s;
+    margin-bottom: 50px;
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1),
+        0 1px 30px 0 rgba(0, 0, 0, 0.1);
+}
+
+#logo {
+    width: 250px;
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 60px;
+}
+
+
+.friends {
+    background-color: #fff;
+    margin-top: -30px;
+    margin-bottom: -60px;
+    width: 250px;
+    height: 600px;
+    padding: 10px;
+    border-radius: 0px 40px 40px 0px;
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.lista {
+    width: 100px 17px;
+    height: 400px;
+    margin-top: -1px;
+    margin-bottom: -100px;
+    overflow: auto;
+    overflow-y: scroll;
+    padding: 10px 10px 0px 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.lista span {
+    font-size: 16px;
+}
+
+
+.Chat-frineds {
+    top: 50%;
+    right: 0;
+    transform: translatez(-50%);
+    display: flex;
+    background-color: #fff;
+    width: 800px;
+    height: 600px;
+    margin-top: -559px;
+    margin-left: 529px;
+    padding: 10px;
+    border-radius: 40px 0px 0px 40px;
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+.contenedor_chat {
+    width: 900px;
+}
+
+.chat-header {
+    margin-left: 30px;
+}
+
+.chat-input {
+    display: flex;
+    margin-top: 350px;
+    align-items: center;
+    padding: 10px;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px black solid;
+    border-radius: 10px;
+}
+
+.chat-input button {
+    background-color: #EF626C;
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 20px;
+}
+
+    
+.message p {
+    margin: 0;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.sent p {
+    background-color: #d1e7dd;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.sent-time {
+    margin-left: 20px;
+}
+
+.received p {
+    background-color: #f8d7da;
+    margin-left: 500px;
+}
+
+.received-time {
+    margin-left: 500px;
+}
+
+
+.time {
+    display: block;
+    font-size: 0.75em;
+    color: #888;
+    margin-top: 5px;
+}
+
+.search-bar input {
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    margin-left: 40px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    z-index: 9999;
+}
+
+
+.lista::-webkit-scrollbar {
+    display: none;
+}
+
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+
+footer {
+    font-size: 13px;
+    max-height: 90px;
+    position: sticky;
+    top: 100vh;
+    padding: 10px;
+    text-align: center;
+    background-color: white;
+    color: #22181c;
+    margin-top: 70px;
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1),
+        0 1px 30px 0 rgba(0, 0, 0, 0.1);
+}
+
+footer a {
+    color: #22181c;
+}

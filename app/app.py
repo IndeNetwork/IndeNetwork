@@ -317,6 +317,19 @@ def ingresar_grupo(id_grupo):
             return redirect(url_for('inicio'))
     else:
         return render_template('inicio.html')
+    
+    
+    
+#------------------------------------------------------------------------------------------------------------
+## Ruta para amigos-chat
+@app.route('/amigos_chat')
+def index():
+        cursor.execute("SELECT  nombre_miembro, apellido_miembro FROM MIEMBRO")
+        MIEMBRO= cursor.fetchall()
+        print(MIEMBRO)
+        return render_template('amigos_chat.html', MIEMBRO = MIEMBRO)
+
+#------------------------------------------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------------------------------------
 
