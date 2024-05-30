@@ -302,13 +302,20 @@ def search_group():
         else:
             return redirect(url_for('grupos'))
         
-@app.route('/grupos/ingresar/<string:id_grupo>')
-def ingresar_grupo(id_grupo):
+@app.route('/grupos/insertar/<string:id_grupo>')
+def insertar_grupo(id_grupo):
     if id_grupo:
         print(f"\n{id_grupo}\n")
+        miembroLogueado = int(session['miembroLogueado'][0])
+        cursor.execute("SELECT id_miembro FROM MIEMBRO WHERE matricula_miembro = %s",(miembroLogueado))
+        id_miembro = cursor.fetchone()
+        if id_miembro:
+            print(id_miembro)
+            
         cursor.execute("INSERT INTO INTEGRANTE (id_miembro, id_grupo) VALUES (%s, %s)",
-                   (session['miembroLogueado'], id_grupo))
+                   (id_miembro, id_grupo))
         mydb.commit()
+        return redirect(url_for('grupos'))
         cursor.execute("SELECT id_integrante FROM INTEGRANTE WHERE id_miembro = %s AND id_grupo = %s", (session['miembroLogueado'], id_grupo))
         integrante_existe = cursor.fetchone()
         if integrante_existe:
