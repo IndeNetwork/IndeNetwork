@@ -193,7 +193,7 @@ def insertarmiembro():
         try:
             # Se hace la peticion de Mysql para insertar los datos
             cursor.execute('INSERT INTO MIEMBRO (numeroMatricula_miembro,nombre_miembro,apellido_miembro,numeroDocumento_miembro,tipo_miembro,grado_miembro,grupo_miembro) VALUES (%s,%s,%s,%s,%s,%s,%s)',
-                           (matricula, nombre, apellido, documento, tipo_miembro, grado, grupo,))
+                        (matricula, nombre, apellido, documento, tipo_miembro, grado, grupo,))
             # se suben los cambios hechos a la base de datos
             mydb.commit()
             # Mensaje para mostrar en el estatus de la interfaz de miembros
@@ -260,7 +260,7 @@ def editar_miembro(id_miembro):
         grupo = request.form['grupo']
         try:
             cursor.execute('UPDATE MIEMBRO SET numeroMatricula_miembro = %s, nombre_miembro = %s, apellido_miembro = %s, numeroDocumento_miembro = %s, tipo_miembro = %s, grado_miembro = %s, grupo_miembro = %s WHERE id_miembro = %s',
-                           (matricula, nombre, apellido, documento, tipo_miembro, grado, grupo, id_miembro,))
+                        (matricula, nombre, apellido, documento, tipo_miembro, grado, grupo, id_miembro,))
             mydb.commit()
             flash('Miembro actualizado correctamente')
             return redirect(url_for('miembros'))
