@@ -31,9 +31,11 @@ CREATE TABLE ESTUDIANTES (
 CREATE TABLE MIEMBROS (
     id_miembro INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     tipo_miembro ENUM('Profesor', 'Estudiante') NOT NULL,
-    fk_tipoMiembro INT NOT NULL,
-    FOREIGN KEY (fk_tipoMiembro) REFERENCES ESTUDIANTES (id_estudiante) ON DELETE CASCADE,
-    FOREIGN KEY (fk_tipoMiembro) REFERENCES PROFESORES (id_profesor) ON DELETE CASCADE
+    fk_profesor INT,
+    fk_estudiante INT,
+    FOREIGN KEY (fk_profesor) REFERENCES PROFESORES (id_profesor) ON DELETE CASCADE,
+    FOREIGN KEY (fk_estudiante) REFERENCES ESTUDIANTES (id_estudiante) ON DELETE CASCADE,
+    CHECK ((fk_profesor IS NOT NULL AND fk_estudiante IS NULL) OR (fk_profesor IS NULL AND fk_estudiante IS NOT NULL))
 );
 
 CREATE TABLE AMIGOS (
@@ -209,33 +211,33 @@ VALUES
 (24, 1024, 242424246, 'Sara', 'Molina', 12),
 (25, 1025, 252525257, 'Andrés', 'Gómez', 1);
 
-INSERT INTO MIEMBROS (tipo_miembro, fk_tipoMiembro)
-VALUES
-('Profesor', 1),
-('Profesor', 2),
-('Profesor', 3),
-('Profesor', 4),
-('Profesor', 5),
-('Profesor', 6),
-('Profesor', 7),
-('Profesor', 8),
-('Profesor', 9),
-('Profesor', 10),
-('Profesor', 11),
-('Profesor', 12),
-('Profesor', 13),
-('Profesor', 14),
-('Profesor', 15),
-('Estudiante', 1),
-('Estudiante', 2),
-('Estudiante', 3),
-('Estudiante', 4),
-('Estudiante', 5),
-('Estudiante', 6),
-('Estudiante', 7),
-('Estudiante', 8),
-('Estudiante', 9),
-('Estudiante', 10);
+INSERT INTO MIEMBROS (tipo_miembro, fk_profesor, fk_estudiante) VALUES
+('Profesor', 1, NULL),
+('Profesor', 2, NULL),
+('Profesor', 3, NULL),
+('Profesor', 4, NULL),
+('Profesor', 5, NULL),
+('Profesor', 6, NULL),
+('Profesor', 7, NULL),
+('Profesor', 8, NULL),
+('Profesor', 9, NULL),
+('Profesor', 10, NULL),
+('Estudiante', NULL, 1),
+('Estudiante', NULL, 2),
+('Estudiante', NULL, 3),
+('Estudiante', NULL, 4),
+('Estudiante', NULL, 5),
+('Estudiante', NULL, 6),
+('Estudiante', NULL, 7),
+('Estudiante', NULL, 8),
+('Estudiante', NULL, 9),
+('Estudiante', NULL, 10),
+('Estudiante', NULL, 11),
+('Estudiante', NULL, 12),
+('Estudiante', NULL, 13),
+('Estudiante', NULL, 14),
+('Estudiante', NULL, 15),
+('Estudiante', NULL, 16);
 
 INSERT INTO AMIGOS (fk_miembro1, fk_miembro2)
 VALUES
@@ -488,3 +490,24 @@ VALUES
 (23, 18, 'Revisé todos los puntos de la tarea y la entregué.', NULL),
 (24, 19, 'La tarea fue entregada a tiempo.', NULL),
 (25, 20, '¿Puedes confirmar si recibiste mi tarea?', NULL);
+
+
+/*INSERT INTO*/
+INSERT INTO indenetwork.asignaturas (id_asignatura, nombre_asignatura) VALUES (9999, 'Fisica Matematica');
+INSERT INTO indenetwork.profesores (id_profesor, numDocumento_profesor, nombre_profesor, apellido_profesor) VALUES (9999, 1938475, 'Maicol', 'Moreno');
+INSERT INTO indenetwork.miembros (id_miembro, tipo_miembro, fk_profesor) VALUES (9999, 'Profesor', 9999);
+
+/*UPDATE*/
+UPDATE indenetwork.asignaturas SET nombre_asignatura = 'Física' WHERE id_asignatura = 9999;
+UPDATE indenetwork.profesores SET nombre_profesor = 'Smith' WHERE id_profesor = 9999;
+UPDATE indenetwork.miembros SET tipo_miembro = 'Estudiante' WHERE id_miembro = 9999;
+
+/*SELECT*/
+SELECT nombre_profesor, apellido_profesor FROM indenetwork.profesores WHERE id_profesor = 9999;
+SELECT nombre_asignatura FROM indenetwork.asignaturas WHERE id_asignatura = 9999;
+SELECT tipo_miembro, fk_profesor FROM indenetwork.miembros WHERE id_miembro = 9999;
+
+/*DELETE*/
+DELETE FROM indenetwork.miembros WHERE id_miembro = 9999;
+DELETE FROM indenetwork.asignaturas WHERE id_asignatura = 9999;
+DELETE FROM indenetwork.profesores WHERE id_profesor = 9999;
