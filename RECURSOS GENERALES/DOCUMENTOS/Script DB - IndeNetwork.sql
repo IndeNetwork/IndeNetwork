@@ -511,3 +511,49 @@ SELECT tipo_miembro, fk_profesor FROM indenetwork.miembros WHERE id_miembro = 99
 DELETE FROM indenetwork.miembros WHERE id_miembro = 9999;
 DELETE FROM indenetwork.asignaturas WHERE id_asignatura = 9999;
 DELETE FROM indenetwork.profesores WHERE id_profesor = 9999;
+
+#Dame 3 consultas sql con el operador de multiplicacion
+
+/*MULTIPLICACION*/
+SELECT COUNT(*) * 2 FROM indenetwork.miembros;
+SELECT AVG(id_miembro) * 2 FROM indenetwork.miembros;
+
+/*RESTA*/
+SELECT id_miembro - 5 FROM indenetwork.miembros LIMIT 5;
+SELECT id_tarea - 10 FROM indenetwork.tareas LIMIT 5;
+SELECT fk_miembro1 - 2 FROM indenetwork.mensajes LIMIT 5;
+
+/*SUMA*/
+SELECT id_miembro + 5 FROM indenetwork.miembros LIMIT 5;
+SELECT id_tarea + 10 FROM indenetwork.tareas LIMIT 5;
+SELECT fk_miembro1 + 2 FROM indenetwork.mensajes LIMIT 5;
+
+/*SUM*/
+SELECT SUM(id_miembro) FROM indenetwork.miembros;
+SELECT SUM(id_tarea) FROM indenetwork.tareas;
+SELECT SUM(fk_miembro1) FROM indenetwork.mensajes;
+
+/*SELECT*/
+SELECT COUNT(*) / 2 FROM indenetwork.miembros;
+SELECT AVG(id_miembro) / 2 FROM indenetwork.miembros;
+SELECT id_miembro / 2 FROM indenetwork.miembros;
+
+/*COUNT*/
+SELECT COUNT(*) FROM indenetwork.miembros WHERE tipo_miembro = 'Profesor';
+SELECT COUNT(*) FROM indenetwork.miembros WHERE tipo_miembro = 'Estudiante';
+SELECT COUNT(fk_miembro1) FROM indenetwork.mensajes;
+
+/*AVG o PROMEDIO*/
+SELECT AVG(id_miembro) FROM indenetwork.miembros;
+SELECT AVG(id_tarea) FROM indenetwork.tareas;
+SELECT AVG(id_miembro) FROM indenetwork.miembros WHERE tipo_miembro = 'Estudiante';
+
+/*MIN*/
+SELECT MIN(id_miembro) FROM indenetwork.miembros;
+SELECT MIN(id_tarea) FROM indenetwork.tareas;
+SELECT MIN(id_miembro) FROM indenetwork.miembros WHERE tipo_miembro = 'Estudiante';
+
+/*MAX*/
+SELECT MAX(id_miembro) FROM indenetwork.miembros;
+SELECT MAX(id_tarea) FROM indenetwork.tareas;
+SELECT MAX(id_miembro) FROM indenetwork.miembros WHERE tipo_miembro = 'Estudiante';

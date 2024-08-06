@@ -10,11 +10,10 @@ app.secret_key = 'secret_key'
 
 # Conexion con la base de datos de railway.
 mydb = mysql.connector.connect(
-    host='roundhouse.proxy.rlwy.net',
+    host='localhost',
     user='root',
-    password='alzSPNqOksaVjmzIgLKqqcuiHwCaCFei',
-    port=36119,
-    database='railway'
+    port=3306,
+    database='indenetwork'
 )
 
 # Ejecutador de comandos/consultas de la base de datos.
@@ -295,7 +294,7 @@ def search_group():
             grupos_encontrados = cursor.fetchall()
             if grupos_encontrados:
                 grupos_spacesWhite = [tuple(
-                                      '' if valor is None else valor for valor in grupo) for grupo in grupos_encontrados]
+                                '' if valor is None else valor for valor in grupo) for grupo in grupos_encontrados]
                 return render_template('grupos.html', grupos=tuple(list(reversed(grupos_spacesWhite))))
             else:
                 return redirect(url_for('grupos'))
@@ -313,7 +312,7 @@ def insertar_grupo(id_grupo):
             print(id_miembro)
             
         cursor.execute("INSERT INTO INTEGRANTE (id_miembro, id_grupo) VALUES (%s, %s)",
-                   (id_miembro, id_grupo))
+                (id_miembro, id_grupo))
         mydb.commit()
         return redirect(url_for('grupos'))
         cursor.execute("SELECT id_integrante FROM INTEGRANTE WHERE id_miembro = %s AND id_grupo = %s", (session['miembroLogueado'], id_grupo))
