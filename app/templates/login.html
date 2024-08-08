@@ -2,10 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
             rel="stylesheet"
             href="{{url_for('static', filename='css/login.css')}}"
@@ -73,12 +70,19 @@
                             required
                         />
                     </div>
+                    <div id="Iprofesor">
+                        <input
+                            name="IsTeacher"
+                            type="checkbox"
+                            id="Iprofesor"
+                            autocomplete="off"
+                        />
+                        <div class="labels">
+                            <label for="IsTeacher">Soy Profesor</label>
+                        </div>
+                    </div>
                 </div>
-                <button
-                    type="submit"
-                    class="bttn_login"
-                    for="formulario"
-                >
+                <button type="submit" class="bttn_login" for="formulario">
                     Iniciar Sesión
                 </button>
             </form>
@@ -91,23 +95,15 @@
             </div>
         </div>
         <script>
-            document.addEventListener(
-                "DOMContentLoaded",
-                function () {
-                    document.querySelector(
-                        ".contenedorFormulario",
-                    ).style.display = "none"
-                    document.querySelector(
-                        ".animacion",
-                    ).style.display = "flex"
-                },
-            )
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelector(".contenedorFormulario").style.display =
+                    "none"
+                document.querySelector(".animacion").style.display = "flex"
+            })
 
             window.addEventListener("load", function () {
                 setTimeout(function () {
-                    document.querySelector(
-                        ".animacion",
-                    ).style.display = "none"
+                    document.querySelector(".animacion").style.display = "none"
                     document.querySelector(
                         ".contenedorFormulario",
                     ).style.display = "block"

@@ -120,7 +120,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .bttn_login {
-    margin: 20px 0 10px 0;
+    margin: 10px 0 10px 0;
     background-color: #22181c;
     border: none;
     color: #f6e8ea;
@@ -154,6 +154,14 @@ p {
     font-size: 15px;
     margin-top: 0;
     margin-bottom: 15px;
+}
+
+#Iprofesor {
+    display: flex;
+    flex-direction: row;
+    margin: 7px 0 5px 0;
+    gap: 5px;
+    align-items: center;
 }
 
 /*CODIGO PARA EL LOADER*/
