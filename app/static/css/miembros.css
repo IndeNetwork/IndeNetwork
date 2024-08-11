@@ -95,6 +95,9 @@ table td {
 }
 
 table th {
+    position: sticky;
+    top: 0;
+    z-index: 3;
     background-color: #312f2f;
     padding: 10px;
     color: #fff;

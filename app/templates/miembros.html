@@ -53,16 +53,20 @@
                                 <th>Grupo</th>
                                 <th> </th>
                             </tr>
+                        </thead>
                         <tbody>
                             {%for dato in miembros%}
+                            {% if dato.1 == 'Estudiante' %}
+                            
+                            {% for estudiante in estudiantes %}
                             <tr>
-                                <td>{{dato.1}}</td>
-                                <td>{{dato.2}}</td>
-                                <td>{{dato.3}}</td>
-                                <td>{{dato.4}}</td>
-                                <td>{{dato.5}}</td>
-                                <td>{{dato.6}}</td>
-                                <td>{{dato.7}}</td>
+                                <td>{{estudiante[0][1]}}</td>
+                                <td>{{estudiante[0][3]}}</td>
+                                <td>{{estudiante[0][4]}}</td>
+                                <td>{{estudiante[0][2]}}</td>
+                                <td>{{'Estudiante'}}</td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <button id="btn-options" onclick="toggleOptions(this)"><img src="{{url_for('static', filename= 'img/ICONS/OptionPointICO.svg')}}" alt="" width="20"></button>
                                     <ul id="options-list" class="options-list hidden">
@@ -77,6 +81,36 @@
                                     </ul>
                                 </td>
                             </tr>
+                            {% endfor %}
+                            {% endif %}
+                            
+                            {% if dato.1 == 'Profesor' %}
+                            {% for profesor in profesores %}
+                            <tr>
+                                <td>{{profesor[0][0]}}</td>
+                                <td>{{profesor[0][2]}}</td>
+                                <td>{{profesor[0][3]}}</td>
+                                <td>{{profesor[0][2]}}</td>
+                                <td>{{'Profesor'}}</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button id="btn-options" onclick="toggleOptions(this)"><img src="{{url_for('static', filename= 'img/ICONS/OptionPointICO.svg')}}" alt="" width="20"></button>
+                                    <ul id="options-list" class="options-list hidden">
+                                        <li class="editar">
+                                                <img src="{{url_for('static', filename= 'img/ICONS/DeleteUserICO.svg')}}" width="20" alt="">
+                                                <a href="/miembros/editar/{{dato.0}}">Editar miembro</a>
+                                        </li>
+                                        <li>
+                                            <img src="{{url_for('static', filename= 'img/ICONS/DeleteUserICO.svg')}}" width="20" alt="">
+                                            <a href="/miembros/eliminar/{{dato.0}}">Eliminar</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+
                             {%endfor%}
                         </tbody>
                         </thead>
