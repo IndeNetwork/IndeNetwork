@@ -52,7 +52,7 @@ def logining():
                 print("Las contraseñas son correctas, son iguales")
                 # Se redirige a la pagina de inicio y se guarda el id del miembro en la variable de sesion miembroLogueado.
                 session['miembroLogueado'] = int(ID_miembro_encontrado)
-                return redirect(url_for('inicio'))
+                return redirect(url_for('inicio_interface'))
             else:
                 return "CONTRASEÑA INCORRECTA"
         #Si ocurre un error, se mostrara el mensaje y lo especifica.
@@ -64,4 +64,4 @@ def logining():
             mydb.close()
             
     else:   # Si no hay metodo es POST se redirige a la pagina de logueo.
-        return redirect(url_for('login'))
+        return redirect(url_for('login_route'))

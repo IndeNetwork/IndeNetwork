@@ -99,7 +99,7 @@ def eliminar_miembro(id_miembro):
     # Subir los cambios realizados a la base de datos
     mydb.commit()
     flash('Miembro Eliminado Correctamente')
-    return redirect(url_for('miembros'))
+    return redirect(url_for('miembros_interface'))
 
 
 def insertarmiembro():
@@ -129,20 +129,20 @@ def insertarmiembro():
             mydb.commit()
             # Mensaje para mostrar en el estatus de la interfaz de miembros
             flash('Datos del miembro guardados correctamente.')
-            return redirect(url_for('miembros'))
+            return redirect(url_for('miembros_interface'))
         except Exception:
             if tipo_miembro == 'Estudiante':
                 # Si el tipo de miembro es estudiante, los campos grado y grupo deben ser seleccionados, sino hace la siguiente funcion
                 if grado == '#' and grupo == '#' and grado == '#' or grupo == '#':
                     flash(
                         'Error, los campos grado y grupo deben ser seleccionados para estudiante, no pueden estar en "#" ')
-                    return redirect(url_for('miembros'))
+                    return redirect(url_for('miembros_interface'))
             if tipo_miembro == '#':
                 flash('Seleccione el tipo de miembro.')
-                return redirect(url_for('miembros'))
+                return redirect(url_for('miembros_interface'))
 
             # si ocurre un error, se mostrara este mensaje
             if Exception:
                 flash(f'Fallo en guardar los datos, intente de nuevo. {Exception}')
-                return redirect(url_for('miembros'))
+                return redirect(url_for('miembros_interface'))
     return render_template('insert.html')

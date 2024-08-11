@@ -72,24 +72,25 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
+                            <th>Profesor</th>
                             <th>Grado</th>
+                            <th>Descripción</th>
                             <th>Asignatura</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {%for dato in grupos%}
+                        {%for grupo in grupos%}
                         <tr>
-                            <td id="nombre_grupo">{{dato.1}}</td>
-                            <td id="descripcion_grupo">{{dato.2}}</td>
-                            <td>{{dato.3}}</td>
-                            <td>{{dato.5}}</td>
+                            {{ grupo.descripcion_grupo }}
+                            <td id="profesor_grupo">{{grupo.fk_profesor}}</td>
+                            <td id="descripcion_grupo">{{grupo.fk_grado}}</td>
+                            <td>{{grupo.descripcion_grupo}}</td>
+                            <td>{{grupo.fk_asignatura}}</td>
                             <td>
                                 <a
                                     id="bttn-enterGroup"
-                                    href="/grupos/insertar/{{dato.0}}"
+                                    href="/grupos/insertar/{{grupo.0}}"
                                 >
                                     <img
                                         src="{{url_for('static', filename= 'img/ICONS/EnterICO.svg')}}"

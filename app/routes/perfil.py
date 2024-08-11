@@ -38,4 +38,4 @@ def perfil():
         return render_template('perfil.html', nombre=nombre, apellido=apellido, tipo=tipo)
     else:
         # Aqui se redirecciona a login, ya que no hay una session abierta.
-        return redirect(url_for('login'))
+        return redirect(url_for('login_interface'))
