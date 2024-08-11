@@ -12,6 +12,7 @@ def conexion_db():
     cursor = mydb.cursor()
 
 def perfil():
+    conexion_db()
     # Aqui se verifica si la session de miembro esta abierta y si no la hay no se podra acceder al perfil.
     if "miembroLogueado" in session:
         # A esta variable se comparte el valor de la matricula de la session del miembro logueado.
@@ -20,7 +21,7 @@ def perfil():
         if 'isTeacher' in session:
             query = "SELECT profesores.nombre_profesor, profesores.apellido_profesor, miembros.tipo_miembro FROM miembros INNER JOIN profesores ON miembros.fk_profesor = profesores.id_profesor WHERE id_miembro = %s"
         else:
-            query = "SELECT estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, miembros.tipo_miembros FROM miembros INNER JOIN estudiantes ON miembros.fk_estudiante = estudiantes.id_estudiante WHERE id_miembros = %s"
+            query = "SELECT estudiantes.nombre_estudiante, estudiantes.apellido_estudiante, miembros.tipo_miembro FROM miembros INNER JOIN estudiantes ON miembros.fk_estudiante = estudiantes.id_estudiante WHERE id_miembro = %s"
         
         cursor.execute(query, (miembroLogueado,))
         datosMiembro = cursor.fetchone()
@@ -38,4 +39,4 @@ def perfil():
         return render_template('perfil.html', nombre=nombre, apellido=apellido, tipo=tipo)
     else:
         # Aqui se redirecciona a login, ya que no hay una session abierta.
-        return redirect(url_for('login_interface'))
+        return redirect(url_for('login_route'))
