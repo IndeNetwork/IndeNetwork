@@ -75,8 +75,75 @@ header {
 }
 
 
+.Chat-frineds {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    width: 800px;
+    height: 600px;
+    padding: 10px;
+    border-radius: 40px 0px 0px 40px;
+    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
 .contenedor_chat {
-    width: 900px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    margin-bottom: 9px;
+    overflow-y: scroll;
+    max-height: calc(100% - 90px);
+    box-sizing: border-box;
+    scrollbar-width: none;
+}
+
+.chat-messages::-webkit-scrollbar {
+    display: none; 
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chat-input input[type="text"] {
+    width: 700px; 
+}
+
+.chat-input button {
+    background-color: #EF626C;
+    color: #fff;
+    border-radius: 20px;
+    border: none;
+    margin-left: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.contenedor_chat {
+    width: 800px;
+    overflow-x: hidden;
 }
 
 .chat-header {

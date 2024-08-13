@@ -121,15 +121,17 @@ def insert_group(id_grupo):
 
 
 # ------------------------------------------------------------------------------------------------------------
-# Ruta para amigos-chat
-@app.route('/amigos_chat')
-def amigos_chat():
-    cursor.execute("SELECT  nombre_miembro, apellido_miembro FROM MIEMBRO")
-    MIEMBRO = cursor.fetchall()
-    print(MIEMBRO)
-    return render_template('amigos_chat.html', MIEMBRO=MIEMBRO)
+# Ruta para obtener la lista de amigos y sus id
+@app.route('/amigos_chat', defaults={'amigo_id': None}, methods=['GET', 'POST'])
+@app.route('/amigos_chat/<int:amigo_id>', methods=['GET', 'POST'])
+def amigos_chat(amigo_id):
+    return amigos_chat.amigos_chat(amigo_id)
 
-# ------------------------------------------------------------------------------------------------------------
+
+#Ruta para enviar mensajes
+@app.route('/enviar_mensaje/<int:amigo_id>', methods=['POST'])
+def enviar_mensaje(amigo_id):
+    return enviar_mensaje.enviar_mensaje()
 
 # -----------------------------------------------------------------------------------------------------------
 
