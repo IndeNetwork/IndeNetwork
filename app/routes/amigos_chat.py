@@ -12,9 +12,40 @@ def conexion_db():
     )
     cursor = mydb.cursor()
 
+
+# Funciones auxiliares
+def obtener_lista_miembros():
+    cursor.execute(
+        "SELECT id_estudiante, nombre_estudiante, apellido_estudiante FROM estudiantes")
+    return cursor.fetchall()
+
+
+def obtener_amigo_por_defecto(miembros):
+    return miembros[0][0] if miembros else None
+
+
+def obtener_nombre_amigo(amigo_id):
+    if amigo_id:
+        cursor.execute(
+            "SELECT nombre_estudiante, apellido_estudiante FROM estudiantes WHERE id_estudiante = %s", (amigo_id,))
+        amigo = cursor.fetchone()
+        return amigo[0], amigo[1] if amigo else ("", "")
+    return "", ""
+
+
+def obtener_mensajes(miembro_actual, amigo_id):
+    cursor.execute("""
+        SELECT fk_miembro1, contenido_mensaje, fechaHora_mensaje 
+        FROM MENSAJES 
+        WHERE (fk_miembro1 = %s AND fk_miembro2 = %s)
+            OR (fk_miembro1 = %s AND fk_miembro2 = %s)
+        ORDER BY fechaHora_mensaje ASC
+    """, (miembro_actual, amigo_id, amigo_id, miembro_actual))
+    return cursor.fetchall()
+
 # Ruta para mostrar la lista de amigos y los mensajes
 
-def amigos_chat(amigo_id):
+def amigos_chat(amigo_id=None):
     conexion_db()
 
     # Obtener la lista de miembros para mostrar en el panel de amigos
@@ -64,30 +95,7 @@ def enviar_mensaje(amigo_id):
             mydb.rollback()  # Reversión de la transacción en caso de error
             return jsonify({"success": False, "message": f"Error inesperado: {e}"}), 500
 
-# Funciones auxiliares
-def obtener_lista_miembros():
-    cursor.execute("SELECT id_estudiante, nombre_estudiante, apellido_estudiante FROM estudiantes")
-    return cursor.fetchall()
 
-def obtener_amigo_por_defecto(miembros):
-    return miembros[0][0] if miembros else None
-
-def obtener_nombre_amigo(amigo_id):
-    if amigo_id:
-        cursor.execute("SELECT nombre_estudiante, apellido_estudiante FROM estudiantes WHERE id_estudiante = %s", (amigo_id,))
-        amigo = cursor.fetchone()
-        return amigo[0], amigo[1] if amigo else ("", "")
-    return "", ""
-
-def obtener_mensajes(miembro_actual, amigo_id):
-    cursor.execute("""
-        SELECT fk_miembro1, contenido_mensaje, fechaHora_mensaje 
-        FROM MENSAJES 
-        WHERE (fk_miembro1 = %s AND fk_miembro2 = %s)
-            OR (fk_miembro1 = %s AND fk_miembro2 = %s)
-        ORDER BY fechaHora_mensaje ASC
-    """, (miembro_actual, amigo_id, amigo_id, miembro_actual))
-    return cursor.fetchall()
 
 def insertar_mensaje(fk_miembro1, amigo_id, contenido_mensaje):
     cursor.execute(

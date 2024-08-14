@@ -27,7 +27,7 @@
                     <ul id="friendsList">
                         {% for miembro in miembros %}
                         <hr>
-                        <li><a href="{{ url_for('amigos_chat', amigo_id=miembro[0]) }}">{{ miembro[1] }} {{ miembro[2] }}</a></li>
+                        <li><a href="{{ url_for('amigosChat_interface', amigo_id=miembro[0]) }}">{{ miembro[1] }} {{ miembro[2] }}</a></li>
                         {% endfor %}
                     </ul>
                 </span>
@@ -51,7 +51,7 @@
                 </div>
                 
                 <div class="chat-input">
-                    <form id="messageForm" action="{{ url_for('enviar_mensaje', amigo_id=amigo_actual) }}" method="post">
+                    <form id="messageForm" action="{{ url_for('amigosChat_interface', amigo_id=amigo_actual) }}" method="post">
                         <input type="text" name="Enter_mensaje" placeholder="Escribe tu mensaje aquí..." required>
                         <button type="submit" id="sendButton">&#10148;</button>
                     </form>

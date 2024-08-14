@@ -1,6 +1,6 @@
 import flask_login
 from flask import Flask, url_for, redirect, request, render_template, session, jsonify, flash
-from routes import miembros, login, inicio, logining, perfil, grupos
+from routes import miembros, login, inicio, logining, perfil, grupos, amigos_chat
 import mysql.connector
 import hashlib
 # Importacion de librerias.
@@ -122,16 +122,15 @@ def insert_group(id_grupo):
 
 # ------------------------------------------------------------------------------------------------------------
 # Ruta para obtener la lista de amigos y sus id
-@app.route('/amigos_chat', defaults={'amigo_id': None}, methods=['GET', 'POST'])
-@app.route('/amigos_chat/<int:amigo_id>', methods=['GET', 'POST'])
-def amigos_chat(amigo_id):
-    return amigos_chat.amigos_chat(amigo_id)
+@app.route('/amigoschat')
+def amigosChat_interface():
+    return amigos_chat.amigos_chat()
 
+# Ruta para enviar mensajes
 
-#Ruta para enviar mensajes
-@app.route('/enviar_mensaje/<int:amigo_id>', methods=['POST'])
-def enviar_mensaje(amigo_id):
-    return enviar_mensaje.enviar_mensaje()
+@app.route('/amigoschat/<int:amigo_id>', methods=['GET', 'POST'])
+def enviarMensaje_function(amigo_id):
+    return amigos_chat.enviar_mensaje()
 
 # -----------------------------------------------------------------------------------------------------------
 
@@ -143,7 +142,7 @@ def logout():
     # Aqui se elimina mediante ".pop" y si no hay una session devolverá "None".
     session.pop('miembroLogueado', None)
     # Finalmente se redirecciona a la pantalla de login.
-    return redirect(url_for('login'))
+    return redirect(url_for('login_route'))
 # -----------------------------------------------------------------------------------------------------------
 
 
