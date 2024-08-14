@@ -55,7 +55,7 @@ def inicio_interface():
 
 @app.route('/logining', methods=['POST'])
 def logining_function():
-    logining.logining()
+    return logining.logining()
 
 
 # -----------------------------------------------------------------------------------------------------------
