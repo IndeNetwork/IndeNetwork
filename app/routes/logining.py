@@ -27,7 +27,7 @@ def logining():
             # Verifica que los datos sean numericos.
             except (ValueError, KeyError):
                 return "ERROR EN EL PROCESO DE LOGIN: DATOS INCORRECTOS"
-
+            print(isTeacher)
             #Se intenta realizar el login.
             try:
                 # Aqui se verifica si el miembro es un profesor o estudiante.
