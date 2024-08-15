@@ -30,7 +30,12 @@ def grupos():
                 'descripcion_grupo': grupo[2],
                 'fk_asignatura': grupo[3]
             }
-            grupos_diccionario[grupo_dict['descripcion_grupo']] = grupo_dict
+            grupos_diccionario[grupo[2]] = {
+                'fk_profesor': grupo[0],
+                'fk_grado': grupo[1],
+                'descripcion_grupo': grupo[2],
+                'fk_asignatura': grupo[3]
+            }
             print(grupos_diccionario)
         return render_template('grupos.html', grupos=grupos_diccionario)
     else:
@@ -80,3 +85,6 @@ def insert_group(id_grupo):
             return redirect(url_for('inicio'))
     else:
         return render_template('inicio.html')
+print(
+    "Hola"
+)
