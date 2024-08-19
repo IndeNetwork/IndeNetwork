@@ -82,11 +82,10 @@
                     <tbody>
                         {%for grupo in grupos%}
                         <tr>
-                            {{ grupo.descripcion_grupo }}
-                            <td id="profesor_grupo">{{grupo.fk_profesor}}</td>
-                            <td id="descripcion_grupo">{{grupo.fk_grado}}</td>
-                            <td>{{grupo.descripcion_grupo}}</td>
-                            <td>{{grupo.fk_asignatura}}</td>
+                            <td>{{grupo.0}}</td>
+                            <td>{{grupo.1}}</td>
+                            <td>{{grupo.2}}</td>
+                            <td>{{grupo.3}}</td>
                             <td>
                                 <a
                                     id="bttn-enterGroup"

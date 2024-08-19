@@ -22,22 +22,7 @@ def grupos():
         cursor.execute(
             "SELECT fk_profesor, fk_grado, descripcion_grupo, fk_asignatura FROM grupos")
         grupos_registrados = cursor.fetchall()
-        grupos_diccionario = {}
-        for grupo in grupos_registrados:
-            grupo_dict = {
-                'fk_profesor': grupo[0],
-                'fk_grado': grupo[1],
-                'descripcion_grupo': grupo[2],
-                'fk_asignatura': grupo[3]
-            }
-            grupos_diccionario[grupo[2]] = {
-                'fk_profesor': grupo[0],
-                'fk_grado': grupo[1],
-                'descripcion_grupo': grupo[2],
-                'fk_asignatura': grupo[3]
-            }
-            print(grupos_diccionario)
-        return render_template('grupos.html', grupos=grupos_diccionario)
+        return render_template('grupos.html', grupos = grupos_registrados)
     else:
         return redirect(url_for('login_route'))
 
