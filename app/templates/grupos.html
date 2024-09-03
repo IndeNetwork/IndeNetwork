@@ -2,10 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
             rel="icon"
             type="image/icon"
@@ -32,82 +29,181 @@
                 </div>
                 <nav>
                     <div id="img_nav">
-                        <a href="/perfil">
+                        <a href="/inicio" class="a_icon">
                             <img
-                                id="img_user"
+                                class="img_icon"
+                                id="img_home"
                                 src="{{url_for('static', filename='img/ICONS/StartICO.svg')}}"
                             />
                         </a>
-                        <a>
+                        <a href="/amigoschat" class="a_icon">
                             <img
+                                id="img_friends"
+                                class="img_icon"
+                                src="{{url_for('static', filename='img/ICONS/FriendsICO.svg')}}"
+                            />
+                        </a>
+                        <a class="a_icon">
+                            <img
+                                class="img_icon"
+                                width="30px !important"
                                 src="{{url_for('static', filename='img/ICONS/OptionLineICO.svg')}}"
                             />
                         </a>
                     </div>
                 </nav>
             </header>
-            <form
-                action="/grupos/search"
-                method="POST"
-                id="form_search"
-                autocomplete="off"
-            >
-                <div id="content_search">
-                    <div id="search">
-                        <input
-                            name="grupo_aBuscar"
-                            id="input_search"
-                            type="text"
-                            placeholder="Buscar grupos"
-                            required
-                        />
+            <main>
+                <div id="leftPanel">
+                    <div id="head_leftPanel">
                         <img
-                            id="btn_search"
-                            src="{{url_for('static', filename='img/ICONS/SearchICO.svg')}}"
+                            src="{{url_for('static', filename='img/ICONS/GroupICO.svg')}}"
+                            alt="Icono de Grupos"
+                            width="35px"
+                        />
+                        <h3>Grupos</h3>
+                    </div>
+                    <div id="search_leftPanel">
+                        <form
+                            action="/grupos/search"
+                            method="POST"
+                            id="formSearch_leftPanel"
+                            autocomplete="off"
+                        >
+                            <input
+                                name="grupo_aBuscar"
+                                id="inputSearch_leftPanel"
+                                type="text"
+                                placeholder="Buscar..."
+                                autocomplete="off"
+                                title="Ingrese el grupo a buscar"
+                                required
+                            />
+                            <img
+                                id="btnSearch_leftPanel"
+                                src="{{url_for('static', filename='img/ICONS/SearchICO.svg')}}"
+                                alt="Icono de Buscar"
+                            />
+                        </form>
+                        <img
+                            id="refreshIMG_search"
+                            src="{{url_for('static', filename= 'img/ICONS/RefreshICO.svg')}}"
+                            alt=""
                         />
                     </div>
-                </div>
-            </form>
-            <div id="tabla_grupos">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Profesor</th>
-                            <th>Grado</th>
-                            <th>Descripción</th>
-                            <th>Asignatura</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {%for grupo in grupos%}
-                        <tr>
-                            <td>{{grupo.0}}</td>
-                            <td>{{grupo.1}}</td>
-                            <td>{{grupo.2}}</td>
-                            <td>{{grupo.3}}</td>
-                            <td>
+                    <hr />
+                    <div id="myGroups_leftPanel">
+                        <h4>Mis grupos</h4>
+                        <ul>
+                            {%for miGrupo in myGroups%}
+                            <li>
                                 <a
-                                    id="bttn-enterGroup"
-                                    href="/grupos/insertar/{{grupo.0}}"
+                                    href="#"
+                                    onclick="obtenerTareas({{miGrupo.0}})"
                                 >
+                                    {{ miGrupo.2 }}°{{ miGrupo.3 }} - {{
+                                    miGrupo.1 }}
                                     <img
-                                        src="{{url_for('static', filename= 'img/ICONS/EnterICO.svg')}}"
-                                        alt=""
-                                        width="20"
+                                        src="{{url_for('static', filename='img/ICONS/taskSearchICO.svg')}}"
+                                        alt="ICONO de ENLACE a GRUPO"
+                                        width="15"
                                     />
                                 </a>
-                            </td>
-                        </tr>
-                        {%endfor%}
-                    </tbody>
-                </table>
-            </div>
+                            </li>
+                            {%endfor%}
+                        </ul>
+                    </div>
+                    <div id="totalGroups_leftPanel">
+                        <h4>Grupos</h4>
+                        <ul>
+                            {%for grupo in grupos%}
+                            <li>
+                                <p>
+                                    {{ grupo.2 }}°{{ grupo.3 }} - {{ grupo.1 }}
+                                </p>
+                                <a href="/grupos/insertar/{{grupo[0]}}">
+                                    <img
+                                        src="{{url_for('static', filename='img/ICONS/EnterICO.svg')}}"
+                                        alt=""
+                                        width="15"
+                                    />
+                                </a>
+                            </li>
+                            {%endfor%} {%if not grupos%}
+                            <li id="noGroups_leftPanel">
+                                <p style="color: gray">
+                                    No se han encontrado grupos en la base de
+                                    datos
+                                </p>
+                            </li>
+                            {%endif%} {%if not grupos%}
+                            <li id="noGroups_leftPanel">
+                                <p style="color: gray">
+                                    No se han encontrado grupos en la base de
+                                    datos
+                                </p>
+                            </li>
+                            {%endif%}
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="rightPanel">
+                    <div id="head_rightPanel">
+                        <h3>TAREAS PUBLICADAS</h3>
+                        <div id="searchOptions_rightPanel">
+                            <form
+                                action="/grupos/search"
+                                method="POST"
+                                id="formSearch_rightPanel"
+                                autocomplete="off"
+                            >
+                                <input
+                                    name="grupo_aBuscar"
+                                    id="inputSearch_rightPanel"
+                                    type="text"
+                                    placeholder="Buscar..."
+                                    required
+                                />
+                                <img
+                                    id="btnSearch_rightPanel"
+                                    src="{{url_for('static', filename='img/ICONS/SearchICO.svg')}}"
+                                />
+                            </form>
+                            <img
+                                id="optionsIMG_search"
+                                src="{{url_for('static', filename= 'img/ICONS/OptionPointICO.svg')}}"
+                            />
+                        </div>
+                    </div>
+                    <hr />
+                    <div id="contentTask_rightPanel">
+                        <div id="waiting_rightPanel">
+                            <p>
+                                SELECIONE UNO DE SUS GRUPOS A LOS CUALES USTED
+                                PERTENECE PA' MOSTRAR
+                            </p>
+                            <img
+                                src="{{url_for('static', filename='img/GrupoEspera.jpeg')}}"
+                                alt=""
+                                width="40%"
+                                id="imgWaiting_rightPanel"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <button id="aggTask">
+                <img
+                    src="{{url_for('static', filename= 'img/ICONS/circle-plus.svg')}}"
+                    alt="Btn add task"
+                />
+            </button>
 
             <footer>
                 <p>
-                    Donde tus preguntas encuentran respuestas y tu
-                    aprendizaje se fortalece
+                    Donde tus preguntas encuentran respuestas y tu aprendizaje
+                    se fortalece
                 </p>
                 <a href="https://ieindependencia.edu.co">
                     I.E La Independencia
@@ -123,26 +219,5 @@
             </div>
         </div>
     </body>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("body2").style.display = "none"
-            document.querySelector(".animacion").style.display =
-                "flex"
-            localStorage.setItem("Documento", "{{documento}}")
-        })
-
-        window.addEventListener("load", function () {
-            setTimeout(function () {
-                document.querySelector(".animacion").style.display =
-                    "none"
-                document.getElementById("body2").style.display =
-                    "block"
-            }, 2000)
-            document
-                .getElementById("btn_search")
-                .addEventListener("click", function () {
-                    document.getElementById("form_search").submit()
-                })
-        })
-    </script>
+    <script src="{{url_for('static', filename='js/grupos.js')}}" defer></script>
 </html>

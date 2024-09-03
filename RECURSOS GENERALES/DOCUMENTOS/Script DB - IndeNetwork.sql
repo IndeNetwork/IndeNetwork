@@ -17,7 +17,7 @@ CREATE TABLE GRADOS (
     UNIQUE (num_grado, numGrupo_grado)
 );
 
-CREATE TABLE ESTUDIANTES (
+CATE TABLE ESTUDIANTES (
     id_estudiante INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     numMatricula_estudiante INT(12) UNIQUE NOT NULL,
     numDocumento_estudiante INT(12) UNIQUE NOT NULL,
@@ -557,3 +557,15 @@ SELECT MIN(id_miembro) FROM indenetwork.miembros WHERE tipo_miembro = 'Estudiant
 SELECT MAX(id_miembro) FROM indenetwork.miembros;
 SELECT MAX(id_tarea) FROM indenetwork.tareas;
 SELECT MAX(id_miembro) FROM indenetwork.miembros WHERE tipo_miembro = 'Estudiante';
+
+
+
+
+
+
+
+
+
+
+#ACTIVIDAD DE SUSTENTACIÓN:
+

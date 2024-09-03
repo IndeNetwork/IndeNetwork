@@ -106,7 +106,7 @@ def editar_miembro(id_miembro):
 
 #Ruta para la pagina de grupos
 @app.route('/grupos')
-def grupos_interface():
+def groups_interface():
     return grupos.grupos()
 
 #Ruta para la funcion de buscar grupos
@@ -114,11 +114,14 @@ def grupos_interface():
 def search_group():
     return grupos.search_group()
 
-#Ruta para la funcion de insertar grupos
+# Ruta para la funcion de insertar grupos
 @app.route('/grupos/insertar/<string:id_grupo>')
 def insert_group(id_grupo):
     return grupos.insert_group(id_grupo)
 
+@app.route('/grupos/view/<string:id_grupo>')
+def view_group(id_grupo):
+    return grupos.viewPost_groups(id_grupo)
 
 # ------------------------------------------------------------------------------------------------------------
 # Ruta para obtener la lista de amigos y sus id

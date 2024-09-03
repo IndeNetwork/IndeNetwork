@@ -19,6 +19,7 @@ def inicio():
         conexion_db()
         # En la siguiente variable se guarda el valor de "miembroLogueado" de la session.
         miembroLogueado = session['miembroLogueado']
+        print(f"\n\nID DEL MIEMBRO LOGUEADO: {miembroLogueado}\n")
         cursor.execute('SELECT * FROM publicaciones LIMIT 5')
         publicaciones = cursor.fetchall()
         cursor.execute('SELECT * FROM amigos WHERE fk_miembro1 = %s or fk_miembro2 = %s', (miembroLogueado,miembroLogueado))
@@ -27,10 +28,10 @@ def inicio():
         # Se ejecuta una busqueda basada en el "miembroLogueado" para obtener su nombre y apellido. Se tiene en cuenta si el miembro que quiere ingresar es profesor o estudiante.
         if 'isTeacher' in session:
             cursor.execute(
-                "SELECT nombre_profesor, apellido_profesor FROM profesores WHERE id_profesor = %s", (miembroLogueado,))
+                "SELECT profesores.nombre_profesor, profesores.apellido_profesor FROM profesores INNER JOIN miembros ON profesores.id_profesor = miembros.fk_profesor WHERE miembros.id_miembro = %s", (miembroLogueado,))
         else:
             cursor.execute(
-                "SELECT nombre_estudiante, apellido_estudiante FROM estudiantes WHERE id_estudiante = %s", (miembroLogueado,))
+                "SELECT estudiantes.nombre_estudiante, estudiantes.apellido_estudiante FROM estudiantes INNER JOIN miembros ON estudiantes.id_estudiante = miembros.fk_estudiante WHERE miembros.id_miembro = %s", (miembroLogueado,))
         # Como tupla se guarda el nombre y apellido del miembro en "datos_miembro".
         datos_miembro = cursor.fetchone()
         # Solo quedaría cargar o renderizar el html con la información obtenida en la busqueda sql.

@@ -130,8 +130,9 @@ img {
     font-weight: bold;
 }
 
-label {
+.row label {
     color: gray;
+    font-size: 80%;
 }
 
 #bttns_profile{
@@ -173,7 +174,6 @@ label {
     margin: auto;
     text-align: center;
 }
-
 
 
 /*CODIGO PARA EL LOADER*/

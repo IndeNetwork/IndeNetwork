@@ -36,6 +36,7 @@ def logining():
                     session['isTeacher'] = True
                 else:
                     query = "SELECT miembros.id_miembro, estudiantes.numDocumento_estudiante FROM miembros INNER JOIN estudiantes ON miembros.fk_estudiante = estudiantes.id_estudiante WHERE estudiantes.numDocumento_estudiante = %s"
+                    session.pop('isTeacher', None)
 
                 # Se realiza la consulta con el query dependiendo si es un profesor o estudiante.
                 cursor.execute(query, (document,))
