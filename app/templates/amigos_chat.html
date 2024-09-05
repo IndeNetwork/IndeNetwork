@@ -1,32 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IndeNetwork - Chats</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/amigos-chat.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/amigos_chat.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/icon" href="{{url_for('static', filename='img/LOGO/Logo - INet ICO.ico')}}">
 </head>
 
 <body>
     <header>
-        <img id="logo" alt="Logo de IndeNetwork" src="{{ url_for('static', filename='img/LOGO/logotipo.png') }}" />
-
+        <img id="logo" alt="Logo de IndeNetwork" src="{{ url_for('static', filename='img/LOGO/logotipo.png') }}" /> <a href="{{ url_for('inicio_interface') }}" id="Regresar"><img id="img_regresar" src="{{ url_for('static', filename='img/ICONS/back.svg') }}"></a>
     </header>
     <div id="cont_principal">
         <section class="friends">
             <h1>FRIENDS</h1>
             <div class="search-bar">
+                <img src="{{url_for('static', filename='img/ICONS/Lupa.svg')}}">
                 <input type="text" placeholder="Search" id="searchInput">
             </div>
-    
             <!-- agregar lista de amigos funcion extracion -->
             <div class="lista">
                 <span>
                     <ul id="friendsList">
                         {% for miembro in miembros %}
-                        <hr>
                         <li><a href="{{ url_for('amigosChat_interface', amigo_id=miembro[0]) }}">{{ miembro[1] }} {{ miembro[2] }}</a></li>
                         {% endfor %}
                     </ul>
@@ -36,8 +34,9 @@
 
         <section class="Chat-frineds">
             <div class="contenedor_chat">
-                <div class="chat-header" id="chat-header"><strong>{{ amigo_nombre }} {{ amigo_apellido }}</strong></div>
-                <hr>
+                <div class="chat-header" id="chat-header">
+                    <strong>{{ amigo_nombre }} {{ amigo_apellido }}</strong>
+                </div>
                 <div class="chat-messages">
                     <div class="message sent">
                         <p class="message-text">Mensaje del emisor</p>
@@ -49,19 +48,59 @@
                         <span class="received-time time">Fecha y hora del mensaje</span>
                     </div>
                 </div>
-                
+                <div class="chat-messages">
+                    {% for mensaje in mensajes %}
+                    <div class="message {{ mensaje.tipo }}">
+                        <p class="message-text">{{ mensaje.contenido }}</p>
+                        <span class="{{ mensaje.tipo }}-time time">{{ mensaje.fecha }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
                 <div class="chat-input">
-                    <form id="messageForm" action="{{ url_for('amigosChat_interface', amigo_id=amigo_actual) }}" method="post">
+                    <form id="messageForm" action="{{ url_for('enviarMensaje_function', amigo_id=amigo_actual) }}" method="post">
+                        <input type="hidden" name="amigo_id" id="amigo_id" value="{{ amigo_actual }}">
                         <input type="text" name="Enter_mensaje" placeholder="Escribe tu mensaje aquí..." required>
                         <button type="submit" id="sendButton">&#10148;</button>
                     </form>
                 </div>
+                
             </div>
         </section>
     </div>
 
+    <div class="animacion">
+        <div class="three-body">
+            <div class="three-body__dot"></div>
+            <div class="three-body__dot"></div>
+            <div class="three-body__dot"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("body2").style.display = "none"
+    document.querySelector(".animacion").style.display =
+        "flex"
+    localStorage.setItem("Documento", "{{documento}}")
+})
 
-    <script src="{{ url_for('static', filename='js/amigos-chat.js') }}"></script>
+window.addEventListener("load", function () {
+    setTimeout(function () {
+        document.querySelector(".animacion").style.display =
+            "none"
+        document.getElementById("body2").style.display =
+            "block"
+    }, 2000)
+    document
+        .getElementById("btn_search")
+        .addEventListener("click", function () {
+            document.getElementById("form_search").submit()
+        })
+})  
+    </script>
+    <div id="chatData" data-miembro-actual="{{ miembro_actual }}"></div>
+    <script src="{{ url_for('static', filename='js/amigos_chat.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/alertas_chat.js') }}"></script>
 </body>
 
 </html>

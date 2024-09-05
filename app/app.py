@@ -130,10 +130,13 @@ def amigosChat_interface():
     return amigos_chat.amigos_chat()
 
 # Ruta para enviar mensajes
-
 @app.route('/amigoschat/<int:amigo_id>', methods=['GET', 'POST'])
 def enviarMensaje_function(amigo_id):
-    return amigos_chat.enviar_mensaje()
+    return amigos_chat.enviar_mensaje(amigo_id)
+
+@app.route('/get_new_messages/<int:amigo_id>')
+def get_new_messages(amigo_id):
+    return amigos_chat.obtener_nuevos_mensajes(amigo_id)
 
 # -----------------------------------------------------------------------------------------------------------
 
