@@ -17,7 +17,7 @@ CREATE TABLE GRADOS (
     UNIQUE (num_grado, numGrupo_grado)
 );
 
-CATE TABLE ESTUDIANTES (
+CREATE TABLE ESTUDIANTES (
     id_estudiante INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     numMatricula_estudiante INT(12) UNIQUE NOT NULL,
     numDocumento_estudiante INT(12) UNIQUE NOT NULL,
