@@ -1,0 +1,77 @@
+1. Tabla PROFESORES
+Propósito: Almacena los datos de los profesores, incluyendo su documento de identidad, nombre, apellido y una foto de perfil. La foto tiene un valor predeterminado.
+Función: Esta tabla permite identificar a los profesores dentro de la plataforma y les asigna un perfil personal que será usado para interacciones en la plataforma.
+Relevancia: Es esencial para registrar y diferenciar a los profesores en la plataforma. No debería eliminarse, ya que los profesores juegan un papel clave en la interacción y publicación de contenido.
+
+2. Tabla GRADOS
+Propósito: Define los grados y grupos (como 11°1, 11°2) dentro de la institución.
+Función: Permite organizar a los estudiantes en grados y grupos específicos.
+Relevancia: Es necesaria para estructurar los grupos en los que se organizan las asignaturas y los estudiantes, ya que cada estudiante debe pertenecer a un grado. No debería eliminarse.
+
+3. Tabla ESTUDIANTES
+Propósito: Almacena los datos de los estudiantes, como el número de matrícula, documento de identidad, nombre, apellido, y el grado al que pertenecen.
+Función: Es la contraparte de la tabla de profesores, proporcionando perfiles individuales para los estudiantes que interactuarán en la plataforma.
+Relevancia: Imprescindible para identificar a los estudiantes y vincularlos con sus grados y actividades. No debería eliminarse.
+
+4. Tabla MIEMBROS
+Propósito: Esta tabla es crucial para unificar a todos los usuarios de la plataforma (profesores y estudiantes) bajo un mismo concepto: miembros. En lugar de tratar a los profesores y estudiantes como dos entidades completamente separadas, se usa esta tabla para tratarlos de manera homogénea en ciertos aspectos, como las interacciones sociales (amistades, mensajes) o las publicaciones.
+Estructura y Función:
+id_miembro: Un identificador único para cada miembro, que puede ser profesor o estudiante.
+tipo_miembro: Indica si el miembro es un "Profesor" o "Estudiante".
+fk_profesor y fk_estudiante: Llaves foráneas que referencian a las tablas PROFESORES o ESTUDIANTES. Dependiendo de si es un profesor o un estudiante, uno de estos campos será NULL, asegurado mediante la restricción CHECK. Esto garantiza que un miembro sea o profesor o estudiante, pero no ambos a la vez.
+Función General: La tabla MIEMBROS permite que funciones como la creación de amigos, el envío de mensajes, o la realización de publicaciones no tengan que duplicarse para profesores y estudiantes. Al tener una tabla común, puedes fácilmente vincular a cualquier usuario con las publicaciones, comentarios, y mensajes sin necesidad de repetir la lógica para diferentes tipos de usuarios.
+Ejemplo Práctico: Si un profesor quiere publicar un aviso, su identidad está registrada en la tabla MIEMBROS y su rol de profesor está vinculado mediante fk_profesor. Lo mismo sucede cuando un estudiante hace una publicación o envía un mensaje; todo esto se maneja a través de MIEMBROS sin tener que duplicar funcionalidades. 
+No debería eliminarse.
+
+5. Tabla AMIGOS
+Propósito: Almacena las relaciones de amistad entre miembros de la plataforma.
+Función: Facilita la creación de relaciones amistosas entre los miembros, permitiendo interacciones privadas y colaborativas fuera de lo estrictamente académico.
+Relevancia: Cumple un rol importante en fomentar la interacción social, promoviendo la comunicación más allá de lo académico. No debería eliminarse.
+
+6. Tabla MENSAJES
+Propósito: Almacena los mensajes privados entre miembros.
+Función: Permite la comunicación directa entre los usuarios de la plataforma (profesores y estudiantes), favoreciendo el debate y aclaración de dudas.
+Relevancia: Es crucial para las interacciones privadas. No debería eliminarse, ya que se alinea con el objetivo de fomentar la comunicación.
+
+7. Tabla PUBLICACIONES
+Propósito: Almacena las publicaciones de los miembros en la plataforma.
+Función: Permite a los usuarios publicar textos, imágenes y archivos, facilitando el intercambio de ideas y contenidos.
+Relevancia: Es una de las funciones principales de la plataforma, permitiendo la colaboración y el aprendizaje conjunto. No debería eliminarse.
+
+8. Tabla COM_PUBLICACION
+Propósito: Almacena los comentarios en las publicaciones.
+Función: Permite a los usuarios interactuar con las publicaciones a través de comentarios, fomentando el intercambio de ideas.
+Relevancia: Importante para fomentar la discusión y la participación activa. No debería eliminarse.
+
+9. Tabla ASIGNATURAS
+Propósito: Almacena las asignaturas disponibles en la plataforma.
+Función: Permite organizar los grupos y tareas según las materias impartidas.
+Relevancia: Es fundamental para estructurar el contenido académico en la plataforma. No debería eliminarse.
+
+10. Tabla GRUPOS
+Propósito: Vincula a los profesores con los grupos y asignaturas que enseñan.
+Función: Organiza a los estudiantes dentro de grupos académicos específicos, donde el profesor publica información o tareas.
+Relevancia: Esencial para la gestión de los cursos y tareas dentro de la plataforma. No debería eliminarse.
+
+11. Tabla INTEGRANTES
+Propósito: La tabla INTEGRANTES relaciona a los estudiantes con los grupos creados por los profesores. Un grupo en IndeNetwork es una clase o asignatura específica que un profesor dirige, y los estudiantes son parte de estos grupos. La tabla es necesaria para gestionar esta relación y determinar a qué grupos pertenece cada estudiante.
+Función General: INTEGRANTES permite saber qué estudiantes están inscritos en qué grupos. Esta tabla es clave para organizar el entorno académico, ya que sin ella no se podría saber quién pertenece a cada grupo, ni a qué estudiantes se debe asignar una tarea o enviar un aviso.
+Ejemplo Práctico: Un profesor crea un grupo para una asignatura específica (por ejemplo, "Matemáticas 11°1"). Los estudiantes que pertenecen a este grupo están registrados en la tabla INTEGRANTES, lo que facilita que se les asignen tareas, que puedan interactuar en discusiones de grupo, y que reciban avisos o publicaciones relacionadas. No debería eliminarse.
+
+12. Tabla TAREAS
+Propósito: Almacena las tareas creadas por los profesores para los grupos.
+Función: Permite la asignación de tareas a los estudiantes, incluyendo la posibilidad de adjuntar archivos.
+Relevancia: Fundamental para la asignación de tareas y actividades académicas. No debería eliminarse.
+
+13. Tabla COM_TAREA
+Propósito: Almacena los comentarios sobre las tareas.
+Función: Permite que los estudiantes y profesores comenten sobre las tareas asignadas, fomentando la interacción y aclaración de dudas sobre las mismas.
+Relevancia: Es útil para fomentar la discusión académica en torno a las tareas. No debería eliminarse.
+
+Tablas que podrían faltar o ajustarse:
+Tabla de Archivos Independiente: Podrías considerar crear una tabla específica para archivos, ya que actualmente estos se almacenan tanto en "PUBLICACIONES" como en "TAREAS". Esto mejoraría la organización de los archivos en la plataforma.
+
+Tabla de Roles: Aunque los roles parecen estar implícitos en la tabla "MIEMBROS", crear una tabla separada para gestionar roles y permisos podría facilitar la administración de accesos en la plataforma.
+
+Conclusión general sobre la base de datos:
+La estructura general está bien pensada y responde a las necesidades planteadas en la narrativa del proyecto IndeNetwork. Las tablas están alineadas con los objetivos de comunicación, interacción y aprendizaje colaborativo. Sin embargo, algunas mejoras como la centralización de archivos o una gestión más clara de los roles pueden optimizar el funcionamiento del sistema.

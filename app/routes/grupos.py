@@ -17,21 +17,29 @@ def conexion_db():
 def grupos():
     # Si hay una sesion en curso se podrá accerder a la ruta de grupos.
     if 'miembroLogueado' in session:
-        conexion_db()  # Conección con la base de datos para
-
+        conexion_db()  # Conección con la base de datos para las consultas
+        
         # OBTENCIÓN DE DATOS DE TODOS LOS GRUPOS:
         cursor.execute(
             "SELECT grupos.id_grupo, grupos.descripcion_grupo, grados.num_grado, grados.numGrupo_grado FROM grupos INNER JOIN grados ON grupos.fk_grado = grados.id_grado ORDER BY grados.num_grado ASC")
         # En la variable grupos_registrados se guardan todos los grupos registrados en la base de datos.
         grupos_totales = cursor.fetchall()
-
-        # OBTENCIóN DE DATOS DE SOLO LOS GRUPOS DEL MIEMBRO:
-        cursor.execute("SELECT grupos.id_grupo, grupos.descripcion_grupo, grados.num_grado, grados.numGrupo_grado FROM grupos INNER JOIN integrantes ON grupos.id_grupo = integrantes.fk_grupo INNER JOIN grados ON grupos.fk_grado = grados.id_grado WHERE integrantes.fk_miembro = %s ORDER BY grupos.descripcion_grupo ASC",
+        
+        if 'isTeacher' in session:
+            # OBTENCIóN DE DATOS DE SOLO LOS GRUPOS DEL MIEMBRO:
+            cursor.execute("SELECT grupos.id_grupo, grupos.descripcion_grupo, grados.num_grado, grados.numGrupo_grado FROM grupos INNER JOIN miembros ON grupos.fk_miembro = miembros.id_miembro INNER JOIN grados ON grupos.fk_grado = grados.id_grado WHERE grupos.fk_miembro = %s ORDER BY grupos.descripcion_grupo ASC",
+                        (session['miembroLogueado'],))
+            isTeacher = True
+        else:
+            # OBTENCIóN DE DATOS DE SOLO LOS GRUPOS DEL MIEMBRO:
+            cursor.execute("SELECT grupos.id_grupo, grupos.descripcion_grupo, grados.num_grado, grados.numGrupo_grado FROM grupos INNER JOIN integrantes ON grupos.id_grupo = integrantes.fk_grupo INNER JOIN grados ON grupos.fk_grado = grados.id_grado WHERE integrantes.fk_miembro = %s ORDER BY grupos.descripcion_grupo ASC",
                     (session['miembroLogueado'],))
+            isTeacher = False
+            
         grupos_miembro = cursor.fetchall()
 
         # Se renderiza el html con la variable grupos_registrados.
-        return render_template('grupos.html', grupos=grupos_totales, myGroups=grupos_miembro)
+        return render_template('grupos.html', grupos=grupos_totales, myGroups=grupos_miembro, profesor=isTeacher)
 
     # Si no hay una sesion en curso se redirigira a la pagina de logueo.
     else:
@@ -177,3 +185,6 @@ def viewPost_groups(id_grupo):
         return jsonify(tareas)
     else:
         return redirect(url_for('login_route'))
+
+def addTask(id_grupo):
+    return redirect(url_for('groups_interface'))

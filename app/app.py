@@ -123,6 +123,10 @@ def insert_group(id_grupo):
 def view_group(id_grupo):
     return grupos.viewPost_groups(id_grupo)
 
+@app.route('/grupos/addTask/<string:id_grupo>')
+def addTask_group(id_grupo):
+    return grupos.addTask(id_grupo)
+
 # ------------------------------------------------------------------------------------------------------------
 # Ruta para obtener la lista de amigos y sus id
 @app.route('/amigoschat')

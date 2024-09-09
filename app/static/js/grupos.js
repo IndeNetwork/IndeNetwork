@@ -178,6 +178,16 @@ function obtenerTareas(id_grupo) {
                 content_rightPanel.appendChild(div) //Se aplican los cambios, (Se inserta el div creado en el div obtenido del html).
         })
     })
-        .catch((error) => console.error("Error:", error))
-}
+    
+    .catch((error) => console.error("Error:", error))
 
+    document.getElementById("btn_addTask").innerHTML = `
+        {%if profesor%}
+            <button id="aggTask">
+                <img
+                    src="${baseUrl}/static/img/ICONS/circle-plus.svg"
+                    alt="Btn add task"
+                />
+            </button>
+        {%endif%}`
+}

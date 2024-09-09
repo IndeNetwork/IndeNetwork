@@ -51,7 +51,7 @@ header {
 }
 
 nav {
-    width: 170px;
+    width: 280px;
     max-height: 35px;
     margin-right: 40px;
     justify-content: space-between;
@@ -66,6 +66,7 @@ nav p {
     color: #22181c;
     margin: 0;
     margin-right: 3px;
+    text-align: center;
 }
 
 #img_nav {
